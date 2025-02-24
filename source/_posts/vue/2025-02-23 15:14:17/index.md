@@ -1,5 +1,5 @@
 ---
-title: Vue - 从对象中取值
+title: Vue - 关联数组的声明和使用
 categories: Vue
 tags:
   - Vue

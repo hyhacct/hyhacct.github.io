@@ -1,0 +1,47 @@
+---
+title: Shell - 关联数组的声明和使用
+categories: Shell
+tags:
+  - Shell
+---
+
+## 概述
+
+本文介绍关联数组的声明和使用。
+
+
+## 代码
+
+> 关联数组是Shell中的一种数据结构，用于存储键值对。
+> 
+> 关联数组使用`declare -A`声明，使用`_cfg["key"]="value"`赋值，使用`echo "${_cfg["key"]}"`输出。
+>
+> 关联数组使用`${_cfg["key"]}`访问元素，同时要注意，如果访问元素为空，需要保证`key`被双引号包裹。
+
+
+> <div style="color: red;">
+>   额外提醒一下，这个玩法有可能在zsh中会报错，如果报错，则使用bash。
+> </div>
+
+```bash
+# 声明一个关联数组
+declare -A _cfg
+
+# 给数组赋值
+_cfg["sleep"]="this is sleep"
+_cfg["data"]="this is data"
+_cfg["name"]="this is name"
+_cfg["type"]="this is type"
+
+# 输出数组的值
+echo "${_cfg["sleep"]}"
+echo "${_cfg["data"]}"
+echo "${_cfg["name"]}"
+echo "${_cfg["type"]}"
+
+# 输出所有键
+echo "${!_cfg[@]}"
+
+# 输出所有值
+echo "${_cfg[@]}"
+```

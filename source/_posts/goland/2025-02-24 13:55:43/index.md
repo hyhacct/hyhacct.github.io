@@ -1,0 +1,73 @@
+---
+title: Go - 使用net/http库发起SOCKS代理请求
+categories: Go
+tags:
+  - Go
+---
+
+
+## 代码
+
+> 这个代码是我在工作中遇到的，当时需要使用net/http库发起SOCKS代理请求，所以就写了这个代码。
+> 
+> 这个代码是使用net/http库发起SOCKS代理请求，所以需要使用`golang.org/x/net/proxy`库。
+
+
+```go
+package utils
+
+import (
+	"errors"
+	"io/ioutil"
+	"net/http"
+
+	"golang.org/x/net/proxy"
+)
+
+func HttpSendSock(url string) (string, error) {
+
+	// 设置代理信息
+	proxyURL := "demo.example.com:8080"
+	proxyUser := "admin"
+	proxyPass := "123456"
+
+	// 创建 SOCKS5 代理的身份验证
+	auth := proxy.Auth{User: proxyUser, Password: proxyPass}
+
+	// 通过代理创建 SOCKS5 Dialer
+	dialer, err := proxy.SOCKS5("tcp", proxyURL, &auth, proxy.Direct)
+	if err != nil {
+		return "", errors.New("无法创建代理" + err.Error())
+	}
+
+	// 创建 HTTP Transport，并使用该 Transport 通过 SOCKS5 代理发送请求
+	httpTransport := &http.Transport{}
+	httpTransport.Dial = dialer.Dial
+
+	// 创建 HTTP Client，使用配置了代理的 Transport
+	client := &http.Client{
+		Transport: httpTransport,
+	}
+
+	// 发送 GET 请求
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", errors.New("无法发起请求" + err.Error())
+	}
+
+	// 执行请求
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", errors.New("执行请求错误" + err.Error())
+	}
+	defer resp.Body.Close()
+
+	// 读取并打印响应内容
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", errors.New("读取内容失败" + err.Error())
+	}
+
+	return string(body), nil
+}
+```

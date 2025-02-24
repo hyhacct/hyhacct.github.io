@@ -1,0 +1,29 @@
+---
+title: Go - 生成随机MAC地址
+categories: Go
+tags:
+  - Go
+---
+
+
+## 代码
+
+这里生成的MAC指定了前缀为`88`，所以生成的MAC地址都是`88`开头，可以自行修改前缀。
+
+这个代码算比较靠谱的，用了比较久，几乎没有出现过问题。
+
+```go
+// CreateRandomMAC 生成随机的 MAC 地址
+func TextRandomMAC() string {
+	// 生成随机的后 10 位
+	var mac [6]byte
+	_, err := rand.Read(mac[:])
+	if err != nil {
+		panic(err)
+	}
+	// 设置第一个字节的第二位为 1，表示这是一个 Locally Administered Address
+	mac[0] |= 2
+	// 将 MAC 地址格式化为字符串
+	return fmt.Sprintf("88:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1], mac[2], mac[3], mac[4])
+}
+```

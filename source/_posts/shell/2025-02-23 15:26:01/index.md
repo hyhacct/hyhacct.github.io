@@ -15,17 +15,12 @@ tags:
 需要安装软件`shc`，并且本机需要有`gcc`环境
 
 
-:::code-group
 
-```bash [Ubuntu/Debian]
+```bash
 apt -y install gcc shc
-```
-
-```bash [CentOS]
+# or
 yum -y install gcc shc
 ```
-
-:::
 
 ## 执行加密
 
@@ -42,9 +37,6 @@ shc -v -f /root/test.sh
 
 ## 命令参数
 
-> [!IMPORTANT]
-> 注意
-> 
 > `安全性`： shc 虽然可以加密 Shell 脚本，但并不是完全安全的。如果攻击者有足够的资源和技术，仍然可以对加密后的二进制文件进行逆向工程。
 > 
 > `兼容性`： shc 生成的二进制文件可能不兼容所有系统。如果需要在多个系统上运行，建议使用 -r 参数。

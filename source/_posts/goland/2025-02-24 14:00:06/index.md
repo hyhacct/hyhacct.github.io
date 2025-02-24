@@ -1,0 +1,186 @@
+---
+title: Go - 构建一个日志系统
+categories: Go
+tags:
+  - Go
+---
+
+
+## 概述
+
+实际项目开发中有些时候确实需要用到日志系统，打印日志信息到`log`文件中，方便排查问题。
+
+为了方便就自己写了一个日志系统，方便使用，具体代码参考下文。
+
+## 代码
+
+> 包名暂定`manager`，具体包名可以自行修改，因为我把他作为了一个日志管理，所以包名就叫`manager`。
+
+```go
+package manager
+
+import (
+	"fmt"
+	"log"
+	"os"
+	"path/filepath"
+	"sync"
+	"time"
+)
+
+// LogLevel 定义日志级别
+type LogLevel int
+
+const (
+	DEBUG LogLevel = iota
+	INFO
+	WARN
+	ERROR
+)
+
+var (
+	logFile   *os.File
+	logger    *log.Logger
+	once      sync.Once
+	logMutex  sync.Mutex
+	logLevels = map[LogLevel]string{
+		DEBUG: "DEBUG",
+		INFO:  "INFO",
+		WARN:  "WARN",
+		ERROR: "ERROR",
+	}
+)
+
+// InitLogger 初始化日志系统
+func InitLogger(logPath string) error {
+	var err error
+	once.Do(func() {
+		// 确保日志目录存在
+		logDir := filepath.Dir(logPath)
+		if err = os.MkdirAll(logDir, 0755); err != nil {
+			return
+		}
+
+		// 打开日志文件，如果不存在则创建，追加写入
+		logFile, err = os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+		if err != nil {
+			return
+		}
+
+		// 初始化logger
+		logger = log.New(logFile, "", 0)
+	})
+	return err
+}
+
+// LogMessage 记录日志消息
+func LogMessage(level LogLevel, format string, args ...interface{}) {
+	if logger == nil {
+		return
+	}
+
+	logMutex.Lock()
+	defer logMutex.Unlock()
+
+	// 格式化时间
+	timestamp := time.Now().Format("2006-01-02 15:04:05.000")
+
+	// 格式化消息
+	message := fmt.Sprintf(format, args...)
+
+	// 完整的日志条目
+	logEntry := fmt.Sprintf("[%s] [%s] %s", timestamp, logLevels[level], message)
+
+	// 写入日志
+	logger.Println(logEntry)
+}
+
+// CloseLogger 关闭日志文件
+func CloseLogger() {
+	if logFile != nil {
+		logFile.Close()
+	}
+}
+
+// 便捷的日志记录方法
+func Debug(format string, args ...interface{}) {
+	LogMessage(DEBUG, format, args...)
+}
+
+func Info(format string, args ...interface{}) {
+	LogMessage(INFO, format, args...)
+}
+
+func Warn(format string, args ...interface{}) {
+	LogMessage(WARN, format, args...)
+}
+
+func Error(format string, args ...interface{}) {
+	LogMessage(ERROR, format, args...)
+}
+
+// RotateLog 日志文件轮转
+func RotateLog(logPath string) error {
+	logMutex.Lock()
+	defer logMutex.Unlock()
+
+	// 关闭当前日志文件
+	if logFile != nil {
+		logFile.Close()
+	}
+
+	// 生成新的日志文件名（带时间戳）
+	timestamp := time.Now().Format("20060102150405")
+	ext := filepath.Ext(logPath)
+	newPath := fmt.Sprintf("%s.%s%s", logPath[:len(logPath)-len(ext)], timestamp, ext)
+
+	// 重命名当前日志文件
+	if err := os.Rename(logPath, newPath); err != nil {
+		return fmt.Errorf("rotate log file failed: %v", err)
+	}
+
+	// 创建新的日志文件
+	var err error
+	logFile, err = os.OpenFile(logPath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		return fmt.Errorf("create new log file failed: %v", err)
+	}
+
+	// 更新logger
+	logger = log.New(logFile, "", 0)
+	return nil
+}
+```
+
+## 使用
+
+```go
+manager.InitLogger("log.log") // 初始化日志系统，必须先初始化（提供存储日志文件路径）
+manager.Info("Hello, World!") // 打印消息日志
+manager.Debug("Hello, World!") // 打印调试日志
+manager.Warn("Hello, World!") // 打印警告日志
+manager.Error("Hello, World!") // 打印错误日志
+manager.CloseLogger() // 关闭日志系统
+```
+
+并且使用时可以调用`RotateLog`方法进行日志文件轮转，具体代码参考下文。
+
+```go
+manager.RotateLog("log.log") // 日志文件轮转
+```
+
+
+另外，打印到日志文件中的日志信息，会包含时间、日志级别、日志信息，具体格式参考如下。
+
+> [2025-02-16 19:39:29.400] <span style="color: green;">[INFO]</span> 数据库初始化完成
+> [2025-02-16 19:39:29.400] <span style="color: green;">[INFO]</span> 添加周期任务成功: 无限任务, 延迟: 0s, 间隔: 10s, 次数: -1
+> [2025-02-16 19:39:29.400] <span style="color: red;">[ERROR]</span> 程序窗口拉起失败: Wails applications will not build without the correct build tags.
+> [2025-02-16 19:39:39.954] <span style="color: green;">[INFO]</span> 数据库初始化完成
+
+
+## 总结
+
+这个日志系统还是比较简单的，但是已经满足了我日常的需求，如果需要更复杂的日志系统，可以自行扩展。
+
+
+
