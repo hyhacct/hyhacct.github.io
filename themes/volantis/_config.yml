@@ -395,14 +395,14 @@ comments:
   # https://github.com/laymonage/giscus
   giscus:
     # 以下配置按照 yml 格式增删填写即可
-    # repo: xxx/xxx
-    # repo-id: xxx
-    # category: xxx
-    # category-id: xxx
-    # mapping: "pathname"
-    # reactions-enabled: "1"
-    # emit-metadata: "0"
-    # lang: "zh-CN"
+    repo: hyhacct/hexo-comment-system
+    repo-id: R_kgDON-o7zQ
+    category: Announcements
+    category-id: DIC_kwDON-o7zc4CnRrs
+    mapping: "url"
+    reactions-enabled: "1"
+    emit-metadata: "0"
+    lang: "zh-CN"
     # 以上配置按照 yml 格式增删填写即可
     theme:
       light: "light" # https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/css/giscus/light.css
@@ -549,8 +549,8 @@ sidebar:
     blogger:
       class: blogger
       display: [desktop, mobile] # [desktop, mobile]
-      avatar: volantis-static/media/org.volantis/blog/Logo-NavBar@3x.png # https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png
-      shape: rectangle # circle, rectangle
+      avatar: https://avatars.githubusercontent.com/u/97386457?s=400&u=0b1b3ef7e18b668d2e24b8391ee1780a3d86f965&v=4 # https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png
+      shape: circle # circle, rectangle
       url: /about/
       title:
       subtitle:

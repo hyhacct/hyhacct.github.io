@@ -1,0 +1,70 @@
+---
+title: Hexo - 为volantis主题启用评论系统
+categories: Hexo
+tags:
+  - Hexo
+  - volantis
+---
+
+
+## 概述
+
+这里我假设你已经安装好了`volantis`主题，并且成功初始化以及应用起来了，接下来开始为volantis主题启用评论系统。
+
+
+## 配置仓库
+
+去Github新建一个仓库，名字随便，新建完成后到仓库的设置里面启用`Discussions`选项。
+
+然后再是进入到`Giscus`的配置界面，把存储库指定为我们新建的那个仓库。
+
+![新建仓库](/images/046.png)
+
+![启用Discussions](/images/047.png)
+
+![指定仓库](/images/048.png)
+
+> 在仓库的讨论选项下，选择`Announcements`，然后点击`Create discussion`。
+
+![创建讨论](/images/049.png)
+
+
+## 安装Giscus
+
+[安装Giscus](https://github.com/apps/giscus),点击链接前往下载安装
+
+> 这里要额外注意，你的`Giscus必须安装到刚才创建的仓库里面`
+>
+> 在仓库的设置页面，下面有个`GitHub Apps`进去看看有没有你的`Giscus`
+
+![安装Giscus](/images/054.png)
+
+
+
+
+## 配置Giscus
+
+访问[Giscus](https://giscus.app/zh-CN)，根据文档进行配置。
+
+这里选项配置如下：
+
+最后你往下看有一个`启用 giscus`，这里面会提供一个代码片段，就包含了`repo`、`repo-id`、`category`、`category-id`等等。
+
+![配置选项](/images/050.png)
+
+
+## 配置Hexo
+
+将上面的代码片段的值都CV到`_config.yml`文件的`giscus`选项下。
+
+
+![配置代码](/images/051.png)
+
+
+![配置代码](/images/052.png)
+
+
+## 测试
+
+![测试](/images/053.png)
+
