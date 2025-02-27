@@ -5,116 +5,223 @@ tags:
   - Shell
 ---
 
-# 概述
+## AWK 简介
 
-发明awk的人真是个天才。
+AWK 是一个强大的文本处理工具，也是一门编程语言。它得名于其创始人 Alfred Aho、Peter Weinberger 和 Brian Kernighan 的姓氏首字母。AWK 主要用于：
+- 文本处理
+- 数据提取
+- 报表生成
+- 数据分析
 
-
-## 用法介绍
-
-
-现在假设我们有这么一个文件，叫`file.txt`，内容如下：
-
-然后我们来使用awk处理他，实现各种功能。
-
-```
-USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root           1  0.9  0.0  23444 10740 ?        Ss    2024 273:27 /sbin/init noats splash
-root           2  0.0  0.0      0     0 ?        S     2024   0:09 [kthreadd]
-root           3  0.0  0.0      0     0 ?        I<    2024   0:00 [rcu_gp]
-root           4  0.0  0.0      0     0 ?        I<    2024   0:00 [rcu_par_gp]
-root           6  0.0  0.0      0     0 ?        I<    2024   0:00 [kworker/0:0H-events_highpri]
-root           9  0.0  0.0      0     0 ?        I<    2024   0:00 [mm_percpu_wq]
-root          10  0.0  0.0      0     0 ?        S     2024   0:00 [rcu_tasks_rude_]
-root          11  0.0  0.0      0     0 ?        S     2024   0:00 [rcu_tasks_trace]
-root          12  3.8  0.0      0     0 ?        S     2024 1117:46 [ksoftirqd/0]
-```
-
-
-## 取指定列及最后一列
-
-关键在于`$2`和`$NF`，`$2`表示第二列，`$NF`表示最后一列。
+## 基本语法
 
 ```bash
-awk '{print $2,$NF}' file.txt
+awk [选项] 'pattern {action}' 输入文件
 ```
 
-```txt
-PID COMMAND
-1 splash
-2 [kthreadd]
-3 [rcu_gp]
-4 [rcu_par_gp]
-6 [kworker/0:0H-events_highpri]
-9 [mm_percpu_wq]
-10 [rcu_tasks_rude_]
-11 [rcu_tasks_trace]
-12 [ksoftirqd/0]
-```
+## AWK 工作原理
 
-## 条件匹配
+AWK 按行处理文本：
+1. 读入一行内容
+2. 将行按分隔符分割成字段
+3. 对每个字段执行指定操作
 
-我们只需要过滤出带有`rcu`关键字的行，并且取PID和COMMAND列。
+## 内置变量
 
+常用内置变量：
+- `$0`: 当前整行内容
+- `$1`-`$n`: 当前行的第n个字段
+- `NF`: 当前行的字段数
+- `NR`: 当前处理的行号
+- `FS`: 输入字段分隔符（默认是空格）
+- `OFS`: 输出字段分隔符
+- `RS`: 输入记录分隔符（默认是换行符）
+- `ORS`: 输出记录分隔符
+
+## 基础示例
+
+### 1. 打印特定列
 ```bash
-awk '/rcu/ {print $1,$NF}' file.txt
+# 文件内容 (data.txt)：
+# name age salary
+# Tom 25 5000
+# Jerry 30 6000
+
+# 打印第1和第3列
+awk '{print $1, $3}' data.txt
+# 输出：
+# name salary
+# Tom 5000
+# Jerry 6000
 ```
-```txt
-root [rcu_gp]
-root [rcu_par_gp]
-root [rcu_tasks_rude_]
-root [rcu_tasks_trace]
-```
 
-
-## 求和
-
-使用awk的变量`sum`来累加PID列的值，并且使用`END`关键字来输出结果。
-
+### 2. 使用自定义分隔符
 ```bash
-awk '{sum+=$2} END {print sum}' file.txt
+# 文件内容 (data.csv)：
+# name,age,salary
+# Tom,25,5000
+
+# 使用逗号作为分隔符
+awk -F',' '{print $1, $3}' data.csv
+# 输出：
+# name salary
+# Tom 5000
 ```
-```txt
-58
-```
 
-
-## 条件判断
-
-这里我们做个简单的判断，只输出CPU占用为0的进程
-
+### 3. 条件过滤
 ```bash
-awk '{ 
-    if ($3 <= 0) { 
-        print $0
-    } 
-}' file.txt
+# 打印工资大于5500的记录
+awk '$3 > 5500 {print $0}' data.txt
+# 输出：
+# Jerry 30 6000
 ```
 
-```txt
-USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root           2  0.0  0.0      0     0 ?        S     2024   0:09 [kthreadd]
-root           3  0.0  0.0      0     0 ?        I<    2024   0:00 [rcu_gp]
-root           4  0.0  0.0      0     0 ?        I<    2024   0:00 [rcu_par_gp]
-root           6  0.0  0.0      0     0 ?        I<    2024   0:00 [kworker/0:0H-events_highpri]
-root           9  0.0  0.0      0     0 ?        I<    2024   0:00 [mm_percpu_wq]
-root          10  0.0  0.0      0     0 ?        S     2024   0:00 [rcu_tasks_rude_]
-root          11  0.0  0.0      0     0 ?        S     2024   0:00 [rcu_tasks_trace]
+## 进阶用法
+
+### 1. BEGIN 和 END 块
+```bash
+# 添加表头和汇总信息
+awk 'BEGIN {
+    print "工资报表"
+    print "--------"
+}
+{
+    total += $3
+}
+END {
+    print "--------"
+    print "总工资:", total
+}' data.txt
 ```
 
+### 2. 内置函数使用
 
-## 循环输出
+#### 字符串函数
+```bash
+# length(): 计算字符串长度
+awk '{print $1, length($1)}' data.txt
 
+# substr(): 字符串截取
+awk '{print substr($1, 1, 3)}' data.txt
+
+# toupper()/tolower(): 大小写转换
+awk '{print toupper($1)}' data.txt
+```
+
+#### 数学函数
+```bash
+# int(): 取整
+awk '{print int($3/1000)}' data.txt
+
+# rand(): 随机数
+awk 'BEGIN {print rand()}'
+```
+
+### 3. 条件和循环
+
+#### if 语句
 ```bash
 awk '{
-    for (i = 1; i <= NF; i++) {
-        for (j = 1; j <= NF; j++) {
-            print "Element at (" i "," j "): " $i
-        }
-    }
-}' file.txt
+    if ($3 >= 6000)
+        print $1 "的工资很高"
+    else if ($3 >= 5000)
+        print $1 "的工资一般"
+    else
+        print $1 "的工资较低"
+}' data.txt
 ```
 
-```txt
-内容太长，不做展示，可以尝试自行执行看看效果
+#### for 循环
+```bash
+# 计算每行各个字段的和
+awk '{
+    sum = 0
+    for (i=1; i<=NF; i++)
+        sum += $i
+    print "行"NR"的和:", sum
+}' numbers.txt
 ```
+
+### 4. 数组使用
+```bash
+# 统计每个工资等级的人数
+awk '{
+    if ($3 >= 6000) level="高"
+    else if ($3 >= 5000) level="中"
+    else level="低"
+    count[level]++
+}
+END {
+    for (level in count)
+        print "工资"level"级别的人数:", count[level]
+}' data.txt
+```
+
+## 实用示例
+
+### 1. 日志分析
+```bash
+# 分析 Apache 访问日志，统计访问量最大的 IP
+awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -n 5
+```
+
+### 2. CSV 文件处理
+```bash
+# 计算 CSV 文件中某列的平均值
+awk -F',' '{ sum += $3 } END { print "平均值:", sum/NR }' data.csv
+```
+
+### 3. 文本格式化
+```bash
+# 格式化输出表格
+awk 'BEGIN {
+    printf "%-15s %-8s %-10s\n", "姓名", "年龄", "工资"
+    print "--------------------------------"
+}
+{
+    printf "%-15s %-8s %-10s\n", $1, $2, $3
+}' data.txt
+```
+
+### 4. 数据提取和转换
+```bash
+# 将数据转换为 JSON 格式
+awk -F',' 'BEGIN {print "["}
+{
+    printf "  {\"name\": \"%s\", \"age\": %s, \"salary\": %s}%s\n",
+        $1, $2, $3, (NR==NR ? "" : ",")
+}
+END {print "]"}' data.csv
+```
+
+## 性能优化技巧
+
+1. 使用 `next` 语句跳过不需要处理的行
+```bash
+awk '$3 < 5000 { next } { print $0 }' data.txt
+```
+
+2. 预编译正则表达式
+```bash
+awk 'BEGIN { pattern = "^[A-Z]" }
+$1 ~ pattern { print $0 }' data.txt
+```
+
+## 注意事项
+
+1. 字段分隔符设置要注意转义
+2. 大文件处理时注意内存使用
+3. 复杂运算考虑使用其他工具配合
+4. 注意数据类型的隐式转换
+
+## 总结
+
+AWK 是一个强大的文本处理工具，它的优势在于：
+- 简洁的语法
+- 强大的文本处理能力
+- 灵活的编程特性
+- 丰富的内置函数
+
+掌握 AWK 可以大大提高文本处理效率，特别是在处理日志、数据分析等场景下。
+
+
