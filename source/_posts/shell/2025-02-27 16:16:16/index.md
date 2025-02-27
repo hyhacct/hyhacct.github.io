@@ -1,0 +1,203 @@
+---
+title: Shell - YQ命令详解
+categories: Shell
+tags:
+  - Shell
+---
+
+## YQ 命令简介
+
+yq 是一个类似于 jq 的 YAML 处理工具，用于解析、转换和处理 YAML 文件。它的主要特点：
+- 支持 YAML/JSON 格式互转
+- 语法类似于 jq
+- 支持复杂的 YAML 数据处理
+- 提供丰富的转换功能
+
+## 安装方法
+
+```bash
+# 在 Ubuntu/Debian 上安装
+sudo apt-get install yq
+
+# 在 CentOS/RHEL 上安装
+sudo yum install yq
+
+# 使用 go 安装
+go install github.com/mikefarah/yq/v4@latest
+
+# 使用 brew 安装 (MacOS)
+brew install yq
+```
+
+## 基本语法
+
+```bash
+yq [命令] [标志] <表达式> [文件...]
+```
+
+## 基础用法
+
+### 1. 读取 YAML
+
+```bash
+# 读取整个文件
+yq eval 'data.yaml'
+
+# 读取特定字段
+yq eval '.metadata.name' data.yaml
+
+# 读取数组元素
+yq eval '.items[0]' data.yaml
+```
+
+### 2. 修改 YAML
+
+```bash
+# 修改字段值
+yq eval '.metadata.name = "new-name"' -i data.yaml
+
+# 添加新字段
+yq eval '.metadata.newField = "value"' -i data.yaml
+
+# 删除字段
+yq eval 'del(.metadata.name)' -i data.yaml
+```
+
+### 3. 数组操作
+
+```bash
+# 添加数组元素
+yq eval '.items += {"name": "new-item"}' -i data.yaml
+
+# 删除数组元素
+yq eval 'del(.items[0])' -i data.yaml
+
+# 修改数组元素
+yq eval '.items[0].name = "updated"' -i data.yaml
+```
+
+## 高级用法
+
+### 1. 格式转换
+
+```bash
+# YAML 转 JSON
+yq eval -o=json 'data.yaml'
+
+# JSON 转 YAML
+yq eval -P 'data.json'
+
+# 压缩输出
+yq eval -o=json -I=0 'data.yaml'
+```
+
+### 2. 多文件处理
+
+```bash
+# 合并多个 YAML 文件
+yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' file1.yaml file2.yaml
+
+# 处理多文档 YAML
+yq eval-all '.' multi-doc.yaml
+```
+
+### 3. 条件处理
+
+```bash
+# 条件选择
+yq eval 'select(.kind == "Deployment")' k8s.yaml
+
+# 条件更新
+yq eval 'select(.kind == "Pod").metadata.labels += {"env": "prod"}' -i k8s.yaml
+```
+
+## 实用示例
+
+### 1. Kubernetes 配置处理
+
+```bash
+# 更新镜像版本
+yq eval '.spec.template.spec.containers[0].image = "nginx:1.19"' -i deploy.yaml
+
+# 添加环境变量
+yq eval '.spec.template.spec.containers[0].env += {"name": "DEBUG", "value": "true"}' -i deploy.yaml
+```
+
+### 2. 配置文件管理
+
+```bash
+# 合并配置
+yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' default.yaml override.yaml
+
+# 提取配置段
+yq eval '.production' config.yaml
+```
+
+### 3. 批量处理
+
+```bash
+# 批量修改多个文件
+find . -name "*.yaml" -exec yq eval '.metadata.labels.version = "v2"' -i {} \;
+
+# 批量验证
+find . -name "*.yaml" -exec yq eval '.' {} \;
+```
+
+## 高级技巧
+
+### 1. 表达式
+
+```bash
+# 使用环境变量
+yq eval '.version = env(VERSION)' -i config.yaml
+
+# 使用操作符
+yq eval '.count = .current + .increment' data.yaml
+```
+
+### 2. 模板处理
+
+```bash
+# 创建模板
+yq eval '.deployment.replicas = .values.replicas' template.yaml
+
+# 应用模板
+yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' template.yaml values.yaml
+```
+
+## 与 jq 的区别
+
+1. 主要区别：
+- yq 专注于 YAML 处理
+- 支持 YAML 特有的功能（如多文档）
+- 可以直接处理 YAML 格式
+- 提供了更多 YAML 相关的操作
+
+2. 共同点：
+- 类似的查询语法
+- 支持复杂的数据处理
+- 都支持管道操作
+- 都支持条件过滤
+
+## 注意事项
+
+1. 版本差异
+- v3 和 v4 版本的语法有所不同
+- 建议使用最新的 v4 版本
+- 注意检查命令的兼容性
+
+2. 使用建议
+- 处理前备份重要文件
+- 使用 `-i` 参数时要谨慎
+- 大文件处理要注意性能
+- 验证输出结果的正确性
+
+## 总结
+
+yq 是一个强大的 YAML 处理工具，它的优势在于：
+- 专注于 YAML 处理
+- 兼容 jq 的语法风格
+- 支持多种格式转换
+- 提供丰富的操作功能
+
+对于需要处理 YAML 配置文件（特别是 Kubernetes 配置）的场景，yq 是一个非常有用的工具。

@@ -1,0 +1,206 @@
+---
+title: Shell - JQ命令详解
+categories: Shell
+tags:
+  - Shell
+---
+
+## JQ 命令简介
+
+jq 是一个轻量级且灵活的命令行 JSON 处理器。它的主要特点：
+- 支持复杂的 JSON 数据处理
+- 强大的过滤和转换功能
+- 支持管道操作
+- 内置丰富的函数库
+
+## 基本语法
+
+```bash
+jq [选项] <过滤器> [JSON文件]
+```
+
+## 基础用法
+
+### 1. 基本过滤
+
+```bash
+# 提取单个字段
+echo '{"name": "Tom", "age": 25}' | jq '.name'
+# 输出: "Tom"
+
+# 提取多个字段
+echo '{"name": "Tom", "age": 25, "city": "Beijing"}' | jq '{name, age}'
+# 输出: {"name": "Tom", "age": 25}
+```
+
+### 2. 数组操作
+
+```bash
+# 访问数组元素
+echo '[1,2,3,4,5]' | jq '.[0]'
+# 输出: 1
+
+# 数组切片
+echo '[1,2,3,4,5]' | jq '.[2:4]'
+# 输出: [3,4]
+
+# 数组长度
+echo '[1,2,3,4,5]' | jq 'length'
+# 输出: 5
+```
+
+### 3. 条件过滤
+
+```bash
+# 过滤数组元素
+echo '[{"name": "Tom", "age": 25}, {"name": "Jerry", "age": 30}]' | jq '.[] | select(.age > 28)'
+# 输出: {"name": "Jerry", "age": 30}
+
+# 多条件过滤
+echo '[{"name": "Tom", "age": 25}, {"name": "Jerry", "age": 30}]' | jq '.[] | select(.age > 20 and .name == "Tom")'
+```
+
+## 高级用法
+
+### 1. 数据转换
+
+```bash
+# 修改字段值
+echo '{"name": "tom", "age": 25}' | jq '.name |= ascii_upcase'
+# 输出: {"name": "TOM", "age": 25}
+
+# 添加新字段
+echo '{"name": "Tom"}' | jq '. + {"age": 25}'
+# 输出: {"name": "Tom", "age": 25}
+
+# 删除字段
+echo '{"name": "Tom", "age": 25}' | jq 'del(.age)'
+# 输出: {"name": "Tom"}
+```
+
+### 2. 数组处理
+
+```bash
+# map 操作
+echo '[1,2,3]' | jq 'map(. * 2)'
+# 输出: [2,4,6]
+
+# 数组聚合
+echo '[1,2,3,4,5]' | jq 'add'
+# 输出: 15
+
+# 数组去重
+echo '[1,2,2,3,3,4]' | jq 'unique'
+# 输出: [1,2,3,4]
+```
+
+### 3. 复杂查询
+
+```bash
+# 嵌套结构查询
+echo '{"user": {"name": "Tom", "contacts": {"email": "tom@example.com"}}}' | jq '.user.contacts.email'
+# 输出: "tom@example.com"
+
+# 条件聚合
+echo '[{"name": "Tom", "score": 80}, {"name": "Jerry", "score": 90}]' | jq 'map(select(.score > 85)) | length'
+# 输出: 1
+```
+
+## 实用示例
+
+### 1. API 响应处理
+
+```bash
+# 处理 REST API 响应
+curl -s 'https://api.example.com/users' | jq '.users[] | {name: .name, email: .email}'
+
+# 提取特定字段并格式化
+curl -s 'https://api.example.com/data' | jq -r '.items[] | [.id, .name] | @csv'
+```
+
+### 2. 配置文件处理
+
+```bash
+# 修改配置值
+jq '.database.port = 5432' config.json
+
+# 合并配置文件
+jq -s '.[0] * .[1]' base.json override.json
+```
+
+### 3. 数据分析
+
+```bash
+# 统计分组
+echo '[{"type": "A", "value": 1}, {"type": "B", "value": 2}, {"type": "A", "value": 3}]' | \
+jq 'group_by(.type) | map({key: .[0].type, sum: map(.value) | add})'
+
+# 计算平均值
+echo '[{"score": 85}, {"score": 92}, {"score": 78}]' | jq '[.[].score] | add/length'
+```
+
+## 高级技巧
+
+### 1. 自定义函数
+
+```bash
+# 定义和使用函数
+jq 'def add_tax(rate): . * (1 + rate); [1,2,3] | map(add_tax(0.1))'
+# 输出: [1.1,2.2,3.3]
+```
+
+### 2. 条件表达式
+
+```bash
+# if-then-else
+echo '{"value": 15}' | jq 'if .value > 10 then "high" else "low" end'
+# 输出: "high"
+```
+
+### 3. 变量使用
+
+```bash
+# 使用变量
+echo '{"items": [1,2,3]}' | jq 'def sum(f): reduce .[] as $item (0; . + ($item | f)); .items | sum(.)'
+```
+
+## 性能优化
+
+1. 使用 `-c` 选项输出紧凑格式
+```bash
+jq -c '.' data.json
+```
+
+2. 使用 `--stream` 处理大文件
+```bash
+jq --stream '.' large.json
+```
+
+## 调试技巧
+
+1. 使用 `debug` 函数
+```bash
+echo '[1,2,3]' | jq 'debug | map(. * 2)'
+```
+
+2. 使用 `-r` 选项去除引号
+```bash
+echo '{"name": "Tom"}' | jq -r '.name'
+```
+
+## 注意事项
+
+1. 注意转义字符的使用
+2. 处理大文件时注意内存使用
+3. 复杂查询可能影响性能
+4. 注意 JSON 数据的编码问题
+
+## 总结
+
+jq 是一个强大的 JSON 处理工具，它的优势在于：
+- 强大的查询语法
+- 丰富的内置函数
+- 灵活的数据转换能力
+- 良好的命令行集成
+
+掌握 jq 可以大大提高 JSON 数据处理效率，特别是在处理 API 响应和配置文件时。
