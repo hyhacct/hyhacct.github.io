@@ -6,7 +6,6 @@ tags:
 ---
 
 
-
 ## categref配置
 
 需要先启用插件 `input.net` 并且在配置文件中配置 `interfaces` 采集需要的网卡（直接全部采集也行）

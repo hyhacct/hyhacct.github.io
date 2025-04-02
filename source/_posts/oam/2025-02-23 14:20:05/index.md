@@ -3,7 +3,6 @@ title: 运维 - NAT类型介绍
 categories: 运维
 tags:
   - 运维
-  - NAT
 ---
 
 

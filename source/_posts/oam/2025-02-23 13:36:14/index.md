@@ -3,7 +3,6 @@ title: 运维 - 清理Linux下的虚拟软盘
 categories: 运维
 tags:
   - 运维
-  - Linux
 ---
 
 ## 概述
@@ -30,16 +29,11 @@ root@localhost:~#
 
 要临时清理掉这些虚拟硬盘，可以使用以下脚本：
 
-
-
-```bash '[CentOS]'
+```bash
 yum -y install lsscsi
-```
-
-```bash [Ubuntu/Debian]
+# or
 apt -y install lsscsi
 ```
-
 
 ```bash
 {
@@ -51,5 +45,3 @@ apt -y install lsscsi
     lsscsi
 }
 ```
-
-

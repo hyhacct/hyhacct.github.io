@@ -6,94 +6,94 @@ tags:
   - speedtest
 ---
 
-
 ## 概述
 
 [官网测速地址](https://www.speedtest.net/zh-Hans/apps/cli)
 
-[Linux程序下载](https://www.speedtest.net/zh-Hans/apps/cli)
+[Linux 程序下载](https://www.speedtest.net/zh-Hans/apps/cli)
 
-> 下载程序的话划到网页最下面，有个Linux，选择对应的架构下载即可，比如X86_64架构
+> 下载程序的话划到网页最下面，有个 Linux，选择对应的架构下载即可，比如 X86_64 架构
 > 下载地址就是：https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz
-
 
 ## 下载测速程序
 
-登录到你的Linux主机，执行命令将软件包下载下来：
+登录到你的 Linux 主机，执行命令将软件包下载下来：
+
+> 如果你想只压测某个网卡,先使用`ip r`查看到网卡名,然后`./speedtest -I <网卡名>`运行。
 
 ```bash
-wget https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz
+{
+  wget https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz
+  tar -zxvf ookla-speedtest-1.2.0-linux-x86_64.tgz
+  ./speedtest
+}
 ```
-
-解压
-
-```bash
-tar -zxvf ookla-speedtest-1.2.0-linux-x86_64.tgz
-```
-
 
 ## 运行程序
-
-解压后你就可以看见`speedtest`这个程序，直接`./speedtest`执行他
 
 > 第一次执行要输入`yes`，会弹出一个警告，然后就正式开始测速了
 
 ```bash
 [root@localhost ~]# ls
 anaconda-ks.cfg  ookla-speedtest-1.2.0-linux-x86_64.tgz  speedtest  speedtest.5  speedtest.md
-[root@localhost ~]# ./speedtest 
+[root@localhost ~]# ./speedtest
 
    Speedtest by Ookla
 
       Server: China Unicom 5G - Shanghai (id: 123456)
          ISP: China Unicom
 Idle Latency:    14.68 ms   (jitter: 0.25ms, low: 14.48ms, high: 14.83ms)
-    Download:    95.05 Mbps (data used: 90.8 MB)                                                   
+    Download:    95.05 Mbps (data used: 90.8 MB)
                  29.29 ms   (jitter: 29.95ms, low: 18.89ms, high: 472.49ms)
-      Upload:    94.64 Mbps (data used: 47.2 MB)                                                   
+      Upload:    94.64 Mbps (data used: 47.2 MB)
                  26.76 ms   (jitter: 0.80ms, low: 18.91ms, high: 28.14ms)
  Packet Loss:     0.0%
   Result URL: https://www.speedtest.net/result/c/xxxxxxx-xxxx-xxxx-xxxx-xxxxxxx
-[root@localhost ~]# 
+[root@localhost ~]#
 ```
 
 ## 压测结果详细报告
 
 1. 测试服务器信息
+
 - Server: China Unicom 5G - Shanghai (id: 24447)
   - 测试服务器位于 上海，由中国联通（China Unicom）提供，使用的是 5G 网络。
   - 服务器的唯一标识符（ID）是 123456
 
 2. 网络服务提供商（ISP）
+
 - ISP: China Unicom
   - 测试的网络服务提供商是中国联通。
 
 3. Idle Latency（空闲延迟）
+
 - Idle Latency: 14.68 ms (jitter: 0.25ms, low: 14.48ms, high: 14.83ms)
   - 延迟（Latency）：14.68 毫秒，表示从你的设备发送请求到服务器并收到响应的平均时间。
   - 抖动（Jitter）：0.25 毫秒，表示延迟的波动范围。
   - 最低延迟（Low）：14.48 毫秒。
   - 最高延迟（High）：14.83 毫秒。
 
-
 4. 下载速度（Download Speed）
+
 - Download: 95.05 Mbps (data used: 90.8 MB)
   - 下载速度：95.05 Mbps（兆比特每秒），表示网络的下载能力。
   - 数据量：测试过程中使用了 90.8 MB（兆字节） 的数据。
 
 5. 上传速度（Upload Speed）
+
 - Upload: 94.64 Mbps (data used: 47.2 MB)
   - 上传速度：94.64 Mbps，表示网络的上传能力。
   - 数据量：测试过程中使用了 47.2 MB 的数据。
 
 6. 丢包率（Packet Loss）
+
 - Packet Loss: 0.0%
   - 表示在测试过程中没有数据包丢失，网络连接非常稳定。
 
 7. 测试结果链接
+
 - Result URL: https://www.speedtest.net/result/c/xxxxxxx-xxxx-xxxx-xxxx-xxxxxxx
   - 测试结果的详细页面可以通过这个链接访问，通常包含更详细的图表和数据。
-
 
 <br >
 <br >
@@ -102,9 +102,9 @@ Idle Latency:    14.68 ms   (jitter: 0.25ms, low: 14.48ms, high: 14.83ms)
 > 这个延迟可能与下载过程中网络的波动有关。
 
 8. 其他指标
+
 - 下载延迟（Download Latency）：29.29 毫秒，抖动为 29.95 毫秒，最低延迟为 18.89 毫秒，最高延迟为 472.49 毫秒。
 - 上传延迟（Upload Latency）：26.76 毫秒，抖动为 0.80 毫秒，最低延迟为 18.91 毫秒，最高延迟为 28.14 毫秒。
-
 
 ## 更多参数介绍
 
@@ -142,54 +142,62 @@ Usage: speedtest [<options>]
 
  Machine readable formats (csv, tsv, json, jsonl, json-pretty) use bytes as the unit of measure with max precision
 
- Valid units for [-u] flag: 
+ Valid units for [-u] flag:
    Decimal prefix, bits per second:  bps, kbps, Mbps, Gbps
    Decimal prefix, bytes per second: B/s, kB/s, MB/s, GB/s
    Binary prefix, bits per second:   kibps, Mibps, Gibps
    Binary prefix, bytes per second:  kiB/s, MiB/s, GiB/s
    Auto-scaled prefix: auto-binary-bits, auto-binary-bytes, auto-decimal-bits, auto-decimal-bytes
 
-[root@yf--lt-fj-5b7dedf9ff ~]# 
+[root@yf--lt-fj-5b7dedf9ff ~]#
 ```
 
 1. -h, --help
+
 - 功能：显示使用帮助信息。
 - 示例：speedtest --help
 
 2. -V, --version
+
 - 功能：显示当前 speedtest 的版本号。
 - 示例：speedtest --version（你的版本是 1.2.0.84）。
 
 3. -L, --servers
+
 - 功能：列出离你最近的测试服务器。
 - 示例：speedtest --servers
 
 4. -s, --server-id=#
-功能：指定使用某个服务器进行测试，# 是服务器的 ID（可通过 -L 获取）。
-示例：speedtest --server-id=1234
+   功能：指定使用某个服务器进行测试，# 是服务器的 ID（可通过 -L 获取）。
+   示例：speedtest --server-id=1234
 
 5. -I, --interface=ARG
-功能：绑定到指定的网络接口进行测试（例如 eth0）。
-示例：speedtest --interface=eth0
+   功能：绑定到指定的网络接口进行测试（例如 eth0）。
+   示例：speedtest --interface=eth0
 
 6. -i, --ip=ARG
+
 - 功能：绑定到指定的 IP 地址进行测试。
 - 示例：speedtest --ip=192.168.1.100
 
 7. -o, --host=ARG
+
 - 功能：通过服务器的完全限定域名（FQDN）指定测试服务器。
 - 示例：speedtest --host=speedtest.example.com
 
 8. -p, --progress=yes|no
+
 - 功能：启用或禁用进度条。
 - 适用格式：仅在 human-readable 或 json 输出格式下有效，交互模式下默认启用。
 - 示例：speedtest --progress=no
 
 9. -P, --precision=#
+
 - 功能：设置输出结果的小数位数，取值范围为 0-8，默认是 2。
 - 示例：speedtest --precision=3
 
 10. -f, --format=ARG
+
 - 功能：指定输出格式。
 - 可选值：
   - human-readable（默认）：人类可读的格式。
@@ -201,10 +209,12 @@ Usage: speedtest [<options>]
 - 示例：speedtest --format=json
 
 11. --progress-update-interval=#
+
 - 功能：设置进度条更新的时间间隔（单位：毫秒，取值范围 100-1000）。
 - 示例：speedtest --progress-update-interval=500
 
 12. -u, --unit[=ARG]
+
 - 功能：设置速度的输出单位，仅适用于 human-readable 格式，默认单位是 Mbps。
 - 可选单位：
   - 十进制单位（bits/秒）：bps, kbps, Mbps, Gbps
@@ -215,6 +225,7 @@ Usage: speedtest [<options>]
 - 示例：speedtest --unit=MB/s
 
 13. 快捷选项（单位相关）
+
 - -a：等同于 -u auto-decimal-bits（自动十进制位）。
 - -A：等同于 -u auto-decimal-bytes（自动十进制字节）。
 - -b：等同于 -u auto-binary-bits（自动二进制位）。
@@ -222,17 +233,21 @@ Usage: speedtest [<options>]
 - 示例：speedtest -b
 
 14. --selection-details
+
 - 功能：显示服务器选择的详细信息。
 - 示例：speedtest --selection-details
 
 15. --ca-certificate=ARG
+
 - 功能：指定 CA 证书束的路径，用于安全的连接验证。
 - 示例：speedtest --ca-certificate=/path/to/ca.pem
 
 16. -v
+
 - 功能：增加日志的详细程度，可多次使用以提高详细级别（例如 -vv）。
 - 示例：speedtest -vv
 
 17. --output-header
+
 - 功能：在 csv 或 tsv 格式中显示表头。
 - 示例：speedtest --format=csv --output-header
