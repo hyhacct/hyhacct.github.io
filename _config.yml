@@ -4,9 +4,9 @@
 
 # Site
 title: Reverse
-subtitle: "Reverse的个人知识库"
-description: "这是Reverse的个人知识库站点,记录各种技术文档,以及个人笔记"
-keywords: "Reverse,个人知识库,技术文档,个人笔记,博客,hyhacct"
+subtitle: "逆流而上"
+description: "每一次的突破，都是自我超越的见证。"
+keywords: "Reverse,知识库,技术文档,博客,hyhacct"
 author: Reverse
 language: zh-CN
 timezone: "Asia/Shanghai"
@@ -53,6 +53,7 @@ highlight:
   wrap: true
   hljs: false
 prismjs:
+  enable: false
   preprocess: true
   line_number: true
   tab_replace: ""
@@ -98,7 +99,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: volantis
+theme: reimu
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
