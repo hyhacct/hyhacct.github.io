@@ -1,0 +1,976 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  
+    
+      data-theme-mode="auto"
+    
+  >
+  <head>
+  
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":true,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://blog.yuhang.run';</script>
+  
+  <title>
+    运维 - 部署VictoriaMetrics集群 |
+    
+    Reverse
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CJetBrains%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CJetBrains%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
+
+    <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="概述为什么会选择 VictoriaMetrics 作为后端存储？既然 Prometheus 已经有了很好的 TSDB，为什么还要选择 VictoriaMetrics？ 其实 VictoriaMetrics 是一个高效、可扩展的时序数据库，旨在处理大规模时序数据。它支持从 Prometheus 导入数据，并且能提供比 Prometheus 更高的存储效率和更低的成本 VictoriaMetrics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="运维 - 部署VictoriaMetrics集群">
+<meta property="og:url" content="https://blog.yuhang.run/oam/2025-02-23%2014:19:08/index.html">
+<meta property="og:site_name" content="Reverse">
+<meta property="og:description" content="概述为什么会选择 VictoriaMetrics 作为后端存储？既然 Prometheus 已经有了很好的 TSDB，为什么还要选择 VictoriaMetrics？ 其实 VictoriaMetrics 是一个高效、可扩展的时序数据库，旨在处理大规模时序数据。它支持从 Prometheus 导入数据，并且能提供比 Prometheus 更高的存储效率和更低的成本 VictoriaMetrics">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.yuhang.run/oam/2025-02-23%2014:19:08/001.png">
+<meta property="og:image" content="https://blog.yuhang.run/oam/2025-02-23%2014:19:08/002.png">
+<meta property="article:published_time" content="2025-02-28T10:51:55.324Z">
+<meta property="article:modified_time" content="2025-04-07T11:55:43.565Z">
+<meta property="article:author" content="Reverse">
+<meta property="article:tag" content="运维">
+<meta property="article:tag" content="VictoriaMetrics">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.yuhang.run/oam/2025-02-23%2014:19:08/001.png">
+  
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <img src="/images/taichi.png" alt="loading" />
+        
+      </div>
+      <div class="loading-word">进入光能...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf015;
+          </div>
+          <a class="main-nav-link" href="/">首页</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf07c;
+          </div>
+          <a class="main-nav-link" href="/archives">归档</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf2bb;
+          </div>
+          <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf500;
+          </div>
+          <a class="main-nav-link" href="/friend">友链</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf7d9;
+          </div>
+          <a class="main-nav-link" href="/tools">工具</a>
+        </span>
+      
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+  
+</div>
+<header id="header">
+  
+    
+      
+        <picture>
+          
+        </picture>
+        
+          <img crossorigin="anonymous" fetchpriority="high" src="/images/banner.webp" alt="运维 - 部署VictoriaMetrics集群">
+        
+      
+    
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">运维 - 部署VictoriaMetrics集群</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content"  class="sidebar-right" >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        
+          <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VictoriaMetrics-%E4%BC%98%E5%8A%BF"><span class="toc-number">2.</span> <span class="toc-text">VictoriaMetrics 优势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text">架构和设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94"><span class="toc-number">2.2.</span> <span class="toc-text">性能对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%92%8C%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.3.</span> <span class="toc-text">存储和压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="toc-number">2.4.</span> <span class="toc-text">查询语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%92%8C%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">2.5.</span> <span class="toc-text">集成和兼容性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7%E5%92%8C%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">2.6.</span> <span class="toc-text">高可用性和扩展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E6%9C%AC%E5%92%8C%E8%B5%84%E6%BA%90%E9%9C%80%E6%B1%82"><span class="toc-number">2.7.</span> <span class="toc-text">成本和资源需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="toc-number">2.8.</span> <span class="toc-text">总结对比表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E5%92%8C%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">单例和集群的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-VictoriaMetrics"><span class="toc-number">4.</span> <span class="toc-text">下载 VictoriaMetrics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-VictoriaMetrics"><span class="toc-number">5.</span> <span class="toc-text">启动 VictoriaMetrics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-vmstorage-%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.1.</span> <span class="toc-text">启动 vmstorage 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-vminsert-%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.2.</span> <span class="toc-text">启动 vminsert 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-vmselect-%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.3.</span> <span class="toc-text">启动 vmselect 实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F"><span class="toc-number">6.</span> <span class="toc-text">验证是否启动成功</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Reverse" class="lazyload">
+  <div class="sidebar-author-name">Reverse</div>
+  <div class="sidebar-description">每一次的突破，都是自我超越的见证。</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">74</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">10</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=hyhacct@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/hyhacct itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf015;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf07c;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf2bb;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf500;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/tools" aria-label="工具"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf7d9;
+        </div>
+        <div class="sidebar-menu-link">工具</div>
+      </div>
+    
+  
+</div>
+</div>
+        
+      
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+  
+  </div>
+  
+</aside>
+
+          <section id="main"><article id="post-oam/2025-02-23 14:19:08" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link" data-aos="zoom-in">
+    <time datetime="2025-02-28T10:51:55.324Z" itemprop="datePublished">2025-02-28</time>
+    <time style="display: none;" id="post-update-time">2025-04-07</time>
+  </span>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%BF%90%E7%BB%B4/" data-aos="zoom-in">运维</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>为什么会选择 VictoriaMetrics 作为后端存储？既然 Prometheus 已经有了很好的 TSDB，为什么还要选择 VictoriaMetrics？</p>
+<p>其实 <code>VictoriaMetrics</code> 是一个高效、可扩展的时序数据库，旨在处理大规模时序数据。它支持从 Prometheus 导入数据，并且能提供比 Prometheus 更高的存储效率和更低的成本</p>
+<h2 id="VictoriaMetrics-优势"><a href="#VictoriaMetrics-优势" class="headerlink" title="VictoriaMetrics 优势"></a>VictoriaMetrics 优势</h2><h3 id="架构和设计"><a href="#架构和设计" class="headerlink" title="架构和设计"></a>架构和设计</h3><p>Prometheus:</p>
+<ul>
+<li>自包含的监控系统，包括数据抓取、存储、查询等功能。</li>
+<li>内置时间序列存储，使用内存和本地磁盘来保存数据。</li>
+<li>本地存储限制（如磁盘空间）会影响性能，适合中小规模的数据存储需求。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>专为高效存储设计，可以支持高性能的读取和写入。</li>
+<li>支持单节点和集群模式，更容易横向扩展。</li>
+<li>更低的磁盘空间消耗和更高的压缩比。</li>
+</ul>
+<h3 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h3><p>Prometheus:</p>
+<ul>
+<li>默认情况下，Prometheus 存储模式在处理大规模数据时会遭遇性能瓶颈，尤其是存储和查询大量的时序数据时。</li>
+<li>当数据量非常大时，Prometheus 可能会遇到存储效率差和查询延迟高的问题。</li>
+<li>适合中小型部署，但在大规模环境下性能可能受限。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>在高负载和大量数据场景下的存储效率更高，具有更低的磁盘使用量。</li>
+<li>对比 Prometheus，VictoriaMetrics 提供更快的数据写入、查询和压缩性能。</li>
+<li>特别适合大规模、高并发的时序数据存储，支持数百万个指标。</li>
+</ul>
+<h3 id="存储和压缩"><a href="#存储和压缩" class="headerlink" title="存储和压缩"></a>存储和压缩</h3><p>Prometheus:</p>
+<ul>
+<li>使用基于时间序列的存储，数据存储结构和压缩方式相对简单。</li>
+<li>数据存储的大小随着时间推移线性增长，且存储压缩效率较低。</li>
+<li>大量数据存储会导致磁盘空间和内存占用的急剧增加。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>提供更高的存储压缩比，数据压缩效率显著优于 Prometheus。</li>
+<li>可以通过一些高级压缩算法（如 LZ4）减少存储空间的需求，存储扩展性更强。</li>
+<li>对大规模数据处理时的存储效率优化更为突出。</li>
+</ul>
+<h3 id="查询语言"><a href="#查询语言" class="headerlink" title="查询语言"></a>查询语言</h3><p>Prometheus:</p>
+<ul>
+<li>Prometheus 提供了 PromQL（Prometheus Query Language），一个功能强大的查询语言，用于筛选、聚合和操作时间序列数据。</li>
+<li>由于其查询语言的灵活性，Prometheus 能够很好地与监控仪表盘（如 Grafana）进行集成，提供丰富的可视化支持。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>VictoriaMetrics 支持 PromQL，意味着用户可以使用现有的 Prometheus 查询语言和工具，进行查询和可视化。</li>
+<li>虽然 VictoriaMetrics 实现了 PromQL，但它也支持更加高效的查询引擎，查询响应速度通常优于 Prometheus，尤其是在大规模数据集上。</li>
+</ul>
+<h3 id="集成和兼容性"><a href="#集成和兼容性" class="headerlink" title="集成和兼容性"></a>集成和兼容性</h3><p>Prometheus:</p>
+<ul>
+<li>Prometheus 生态系统非常成熟，支持丰富的 exporter、alerting rules 和其他监控相关工具。</li>
+<li>提供与 Grafana 等仪表盘工具的原生集成，且广泛支持各种云平台和容器管理工具（如 Kubernetes）。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>VictoriaMetrics 是 Prometheus 的兼容存储，可以作为 Prometheus 的远程存储后端。</li>
+<li>对 Prometheus 的写入和查询接口提供支持，可以通过简单的配置将 Prometheus 的数据直接发送到 VictoriaMetrics。</li>
+<li>支持与 Grafana 集成，使用 PromQL 进行查询。</li>
+</ul>
+<h3 id="高可用性和扩展性"><a href="#高可用性和扩展性" class="headerlink" title="高可用性和扩展性"></a>高可用性和扩展性</h3><p>Prometheus:</p>
+<ul>
+<li>Prometheus 的高可用性通常通过 Prometheus 高可用性集群（HA）架构来实现，但这一架构并不本地支持，通常需要手动配置多个 Prometheus 实例来实现数据的冗余。</li>
+<li>集群化存储、水平扩展是 Prometheus 的短板，需要依赖外部组件如 Thanos 或 Cortex 来进行扩展。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>本身支持高可用性和横向扩展。</li>
+<li>提供原生的集群模式，能够轻松扩展存储和处理能力。</li>
+<li>高可用性设计更加简单，适合需要大规模横向扩展的场景。</li>
+</ul>
+<h3 id="成本和资源需求"><a href="#成本和资源需求" class="headerlink" title="成本和资源需求"></a>成本和资源需求</h3><p>Prometheus:</p>
+<ul>
+<li>对资源的需求较大，特别是在大规模数据集下，内存和磁盘空间的使用会迅速增加。</li>
+<li>随着数据量的增加，Prometheus 在硬件和存储上的投入成本也会显著增加。</li>
+</ul>
+<p>VictoriaMetrics:</p>
+<ul>
+<li>相比 Prometheus，VictoriaMetrics 更为高效地利用资源，特别是在存储空间和压缩效率上。</li>
+<li>更低的硬件要求，能在更少的资源下处理大量的时序数据，适合需要大规模数据存储的场景。</li>
+</ul>
+<h3 id="总结对比表"><a href="#总结对比表" class="headerlink" title="总结对比表"></a>总结对比表</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th align="center">Prometheus</th>
+<th align="right">VictoriaMetrics</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>设计目标</td>
+<td align="center">专为监控和告警设计</td>
+<td align="right">高效的时序数据存储</td>
+</tr>
+<tr>
+<td>存储性能</td>
+<td align="center">对大规模数据性能有限</td>
+<td align="right">优秀的存储效率和压缩能力</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td align="center">水平扩展需额外工具支持（如 Thanos）</td>
+<td align="right">原生支持集群模式，横向扩展容易</td>
+</tr>
+<tr>
+<td>查询语言</td>
+<td align="center">PromQL</td>
+<td align="right">支持 PromQL，查询更高效</td>
+</tr>
+<tr>
+<td>压缩性能</td>
+<td align="center">较低</td>
+<td align="right">高压缩比，节省存储空间</td>
+</tr>
+<tr>
+<td>高可用性</td>
+<td align="center">需要手动配置</td>
+<td align="right">HA	原生支持高可用性和集群部署</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td align="center">中小规模监控，特别是容器化和微服务</td>
+<td align="right">大规模、高并发时序数据存储</td>
+</tr>
+<tr>
+<td>集成和兼容性</td>
+<td align="center">完善的生态系统和工具支持</td>
+<td align="right">与 Prometheus 和 Grafana 完全兼容</td>
+</tr>
+<tr>
+<td>成本和资源需求</td>
+<td align="center">较高</td>
+<td align="right">较低，存储更节省空间</td>
+</tr>
+</tbody></table>
+<h2 id="单例和集群的区别"><a href="#单例和集群的区别" class="headerlink" title="单例和集群的区别"></a>单例和集群的区别</h2><p>集群牛逼，ok跳过。（集群听起来就吊）</p>
+<h2 id="下载-VictoriaMetrics"><a href="#下载-VictoriaMetrics" class="headerlink" title="下载 VictoriaMetrics"></a>下载 VictoriaMetrics</h2><p>需要去<code>github</code>下载二进制文件，访问文档<a target="_blank" rel="noopener" href="https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.108.1">在这里</a></p>
+<p>这里目前我选择的是<code>v1.108.1</code>版本，并且架构是<code>amd64</code>，运行环境为<code>linux</code>，下载后缀为<code>.tar.gz</code>的压缩包。</p>
+<p>打开后选择你需要的版本即可，注意一下要避免文件名字带有<code>enterprise</code>字样的，这是企业版，我们用开源版就行了。</p>
+<p>比如我这里下载的是<code>victoria-metrics-linux-amd64-v1.108.1-cluster.tar.gz</code></p>
+<p><img src="/oam/2025-02-23%2014:19:08/001.png"></p>
+<p>这里介绍下这几个版本的区别：</p>
+<ul>
+<li><code>victoria-metrics-linux-amd64-v1.108.1-cluster.tar.gz</code>：这是开源版本，支持集群模式。</li>
+<li><code>victoria-metrics-linux-amd64-v1.108.1-enterprise-cluster.tar.gz</code>：这是企业版，支持集群模式。</li>
+<li><code>victoria-metrics-linux-amd64-v1.108.1-enterprise.tar.gz</code>：这是企业版，仅支持单机模式。</li>
+<li><code>victoria-metrics-linux-amd64-v1.108.1.tar.gz</code>：这是开源版本，仅支持单机模式。</li>
+</ul>
+<ol>
+<li><code>victoria-metrics</code> 是项目名，应该不用多说。</li>
+<li><code>linux</code> 是运行环境，这里我们选择<code>linux</code>。</li>
+<li><code>amd64</code> 是架构，这里我们选择<code>amd64</code>。</li>
+<li><code>v1.108.1</code> 是版本号，这里我们选择<code>v1.108.1</code>。</li>
+<li><code>cluster</code> 是集群模式，这里我们选择<code>cluster</code>。</li>
+<li><code>enterprise</code> 是企业版，我们一般免费版就够用。</li>
+</ol>
+<h2 id="启动-VictoriaMetrics"><a href="#启动-VictoriaMetrics" class="headerlink" title="启动 VictoriaMetrics"></a>启动 VictoriaMetrics</h2><p>假设你已经下载到了服务器，可以存储到任何位置，我推荐在<code>opt</code>目录下。</p>
+<p>我们先创建一下目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    _path_bin=<span class="string">&quot;/opt/victoria-metrics&quot;</span></span><br><span class="line">    _path_storage_1=<span class="string">&quot;/data/VictoriaMetrics/storage/101&quot;</span></span><br><span class="line">    _path_storage_2=<span class="string">&quot;/data/VictoriaMetrics/storage/102&quot;</span></span><br><span class="line">    _path_storage_3=<span class="string">&quot;/data/VictoriaMetrics/storage/103&quot;</span></span><br><span class="line">    <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$_path_bin</span>&quot;</span></span><br><span class="line">    <span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$_path_storage_1</span>&quot;</span> <span class="string">&quot;<span class="variable">$_path_storage_2</span>&quot;</span> <span class="string">&quot;<span class="variable">$_path_storage_3</span>&quot;</span> <span class="string">&quot;<span class="variable">$_path_bin</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建完成后，解压文件到指定目录：</p>
+<p>这里将会把下载好的victoria-metrics解压到<code>/opt/victoria-metrics</code>目录下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_path_bin=<span class="string">&quot;/opt/victoria-metrics&quot;</span></span><br><span class="line">tar -zxvf victoria-metrics-linux-amd64-v1.108.1-cluster.tar.gz -C <span class="string">&quot;<span class="variable">$_path_bin</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>解压完成后我们就可以开始启动了，他不需要修改配置文件(因为根本没有配置文件)。</p>
+<h3 id="启动-vmstorage-实例"><a href="#启动-vmstorage-实例" class="headerlink" title="启动 vmstorage 实例"></a>启动 vmstorage 实例</h3><p>这个是存储实例，负责存储数据，支持横向扩展，可以有多个实例，<code>但是要监听不同的端口</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    _path_bin=<span class="string">&quot;/opt/victoria-metrics&quot;</span></span><br><span class="line">    _path_storage_1=<span class="string">&quot;/data/VictoriaMetrics/storage/101&quot;</span></span><br><span class="line">    _path_storage_2=<span class="string">&quot;/data/VictoriaMetrics/storage/102&quot;</span></span><br><span class="line">    _path_storage_3=<span class="string">&quot;/data/VictoriaMetrics/storage/103&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$_path_bin</span>/vmstorage-prod&quot;</span> \</span><br><span class="line">        -httpListenAddr=:18482 \</span><br><span class="line">        -vminsertAddr=:18400 \</span><br><span class="line">        -vmselectAddr=:18401 \</span><br><span class="line">        -storageDataPath=<span class="string">&quot;<span class="variable">$_path_storage_1</span>&quot;</span> &amp;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$_path_bin</span>/vmstorage-prod&quot;</span> \</span><br><span class="line">        -httpListenAddr=:28482 \</span><br><span class="line">        -vminsertAddr=:28400 \</span><br><span class="line">        -vmselectAddr=:28401 \</span><br><span class="line">        -storageDataPath=<span class="string">&quot;<span class="variable">$_path_storage_2</span>&quot;</span> &amp;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$_path_bin</span>/vmstorage-prod&quot;</span> \</span><br><span class="line">        -httpListenAddr=:38482 \</span><br><span class="line">        -vminsertAddr=:38400 \</span><br><span class="line">        -vmselectAddr=:38401 \</span><br><span class="line">        -storageDataPath=<span class="string">&quot;<span class="variable">$_path_storage_3</span>&quot;</span> &amp;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># =====================================================================</span></span><br><span class="line">    <span class="comment"># vmstorage 启动后，会监听三个端口，分别是</span></span><br><span class="line">    <span class="comment"># -httpListenAddr :8482</span></span><br><span class="line">    <span class="comment"># -vminsertAddr :8400</span></span><br><span class="line">    <span class="comment"># -vmselectAddr :8401</span></span><br><span class="line">    <span class="comment"># 端口8400负责接收来自 vminsert 的写入请求，</span></span><br><span class="line">    <span class="comment"># 端口8401负责接收来自 vmselect 的数据查询请求，</span></span><br><span class="line">    <span class="comment"># 端口8482则是 vmstorage 自身提供的 http api 接口</span></span><br><span class="line">    <span class="comment"># =====================================================================</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我启动了三个存储实例，分别监听三个不同的端口，这个是我们自己设置的，分别是<code>18482</code>、<code>28482</code>、<code>38482</code>，需要记下来，待会会用到，<code>-httpListenAddr</code>指定了端口号，<code>-storageDataPath</code>指定了存储目录。</p>
+<h3 id="启动-vminsert-实例"><a href="#启动-vminsert-实例" class="headerlink" title="启动 vminsert 实例"></a>启动 vminsert 实例</h3><p>这个是写入实例，负责接收来自 Prometheus 或者客户端采集器的写入请求，并将数据写入到存储实例中。</p>
+<p>所以这里我们肯定要配置一下<code>-storageNode</code>参数，指定写入哪些存储实例，上面提到了，我们启动了三个存储实例，分别对应三个端口，所以这里我们指定这三个端口即可。</p>
+<p>具体配置其实就是<code>-storageNode=127.0.0.1:18400,127.0.0.1:28400,127.0.0.1:38400</code>指定写入哪些存储实例，这里指定了三个存储实例的地址。</p>
+<p>然后就是服务监听的端口我们改下，让他去监听<code>11357</code>端口，<code>-httpListenAddr</code>指定了端口号。</p>
+<p>并且使用<code>-httpAuth.username</code>和<code>-httpAuth.password</code>参数设置了用户名和密码，这个是可选的，如果你不需要验证的话，可以不设置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    _path_bin=<span class="string">&quot;/opt/victoria-metrics&quot;</span></span><br><span class="line">    <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$_path_bin</span>/vminsert-prod&quot;</span> \</span><br><span class="line">        -httpListenAddr :11357 \</span><br><span class="line">        -storageNode=127.0.0.1:18400,127.0.0.1:28400,127.0.0.1:38400 \</span><br><span class="line">        -httpAuth.username=admin \</span><br><span class="line">        -httpAuth.password=nihenshuai &amp;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># =====================================================================</span></span><br><span class="line">    <span class="comment"># vminsert 启动后，会监听一个端口-httpListenAddr :11357。</span></span><br><span class="line">    <span class="comment"># 该端口实现了 prometheus remote_write协议，</span></span><br><span class="line">    <span class="comment"># 因此可以接收和解析通过 remote_write 协议写入的数据。</span></span><br><span class="line">    <span class="comment"># 不过要注意，VictoriaMetrics 集群版本具有多租户功能，</span></span><br><span class="line">    <span class="comment"># 因此租户ID会以如下形式出现在 API URL 中:</span></span><br><span class="line">    <span class="comment"># http://vminsert:8480/insert/&lt;account_id&gt;/prometheus/api/v1/write</span></span><br><span class="line">    <span class="comment"># =====================================================================</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动-vmselect-实例"><a href="#启动-vmselect-实例" class="headerlink" title="启动 vmselect 实例"></a>启动 vmselect 实例</h3><p>这个是查询实例，负责接收来自夜莺或者Grafana的查询请求，并从存储实例中查询数据返回。</p>
+<p>这个其实和上一个<code>Insert</code>实例配置是差不多的，要指定三个存储实例的地址，然后设置他监听<code>11358</code>端口。</p>
+<p>毕竟总得告诉他从哪里查数据嘛。</p>
+<p>然后就是设置<code>-httpAuth.username</code>和<code>-httpAuth.password</code>参数，和上面提到的是一样的，可选填。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    _path_bin=<span class="string">&quot;/opt/victoria-metrics&quot;</span></span><br><span class="line">    <span class="built_in">nohup</span> <span class="string">&quot;<span class="variable">$_path_bin</span>/vmselect-prod&quot;</span> \</span><br><span class="line">        -httpListenAddr :11358 \</span><br><span class="line">        -storageNode=127.0.0.1:18401,127.0.0.1:28401,127.0.0.1:38401 \</span><br><span class="line">        -httpAuth.username=admin \</span><br><span class="line">        -httpAuth.password=nihenshuai &amp;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># =====================================================================</span></span><br><span class="line">    <span class="comment"># vmselect 启动后，会监听一个端口-httpListenAddr :11358</span></span><br><span class="line">    <span class="comment"># 该端口实现了 prometheus query相关的接口。</span></span><br><span class="line">    <span class="comment"># 不过要注意，VictoriaMetrics 集群版本具有多租户功能，</span></span><br><span class="line">    <span class="comment"># 因此租户ID会以如下形式出现在 API URL 中:</span></span><br><span class="line">    <span class="comment"># http://vminsert:8481/select/&lt;account_id&gt;/prometheus/api/v1/query</span></span><br><span class="line">    <span class="comment"># =====================================================================</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证是否启动成功"><a href="#验证是否启动成功" class="headerlink" title="验证是否启动成功"></a>验证是否启动成功</h2><p>到这一步，我们基本就完事了，只需要看下进程是不是都在就行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep vi</span><br></pre></td></tr></table></figure>
+
+<p><img src="/oam/2025-02-23%2014:19:08/002.png"></p>
+<p>这里看着是启动了三个存储实例，一个写入实例，一个查询实例，那就没问题了。</p>
+<p>接下来是url地址验证，按照上面所说的，我们需要配置租户ID，所以我们需要用到<code>vminsert</code>的API接口，我们先看下API接口的地址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:11357/insert/&lt;account_id&gt;/prometheus/api/v1/write</span><br></pre></td></tr></table></figure>
+
+<p>然后是<code>vmselect</code>的API接口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:11358/select/&lt;account_id&gt;/prometheus/api/v1/query</span><br></pre></td></tr></table></figure>
+
+<p>直接去验证一下是否可以正常写入和查询数据即可，最简单的办法就是去<code>夜莺</code>的集成中心里面添加一个数据源，看看是否可以添加成功，需要注意你设置的用户名和密码是否填写正确。</p>
+<blockquote>
+<p>需要注意下，如果你是按照上面的步骤，只启动了一个查询和写入实例的话，那你的<code>account_id</code>就是<code>0</code>。</p>
+</blockquote>
+<p>正常情况下一个也够了，主要是你存储。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到这里，我们就启动了<code>VictoriaMetrics</code>集群。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/VictoriaMetrics/" rel="tag">VictoriaMetrics</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+      
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          
+          
+            <img data-src="/images/banner.webp" data-sizes="auto" alt="运维 - CentOS反向打rpm包" class="lazyload">
+          
+        
+        <a href="/oam/2025-02-23%2014:15:16/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            运维 - CentOS反向打rpm包
+          
+        </h3>
+      </div>
+    
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="运维 - 配置Nginx SSL证书" class="lazyload">
+        
+      
+      <a href="/oam/2025-02-23%2013:33:03/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          运维 - 配置Nginx SSL证书
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+
+
+
+
+
+
+
+
+</section>
+        </div>
+        
+        
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+      
+      
+        2025
+      
+      <span class="footer-info-sep rotate"></span>
+      Reverse
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        43.3k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        03:00
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VictoriaMetrics-%E4%BC%98%E5%8A%BF"><span class="toc-number">2.</span> <span class="toc-text">VictoriaMetrics 优势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.1.</span> <span class="toc-text">架构和设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94"><span class="toc-number">2.2.</span> <span class="toc-text">性能对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%92%8C%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.3.</span> <span class="toc-text">存储和压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80"><span class="toc-number">2.4.</span> <span class="toc-text">查询语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%92%8C%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-number">2.5.</span> <span class="toc-text">集成和兼容性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7%E5%92%8C%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">2.6.</span> <span class="toc-text">高可用性和扩展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%90%E6%9C%AC%E5%92%8C%E8%B5%84%E6%BA%90%E9%9C%80%E6%B1%82"><span class="toc-number">2.7.</span> <span class="toc-text">成本和资源需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94%E8%A1%A8"><span class="toc-number">2.8.</span> <span class="toc-text">总结对比表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E5%92%8C%E9%9B%86%E7%BE%A4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.</span> <span class="toc-text">单例和集群的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-VictoriaMetrics"><span class="toc-number">4.</span> <span class="toc-text">下载 VictoriaMetrics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-VictoriaMetrics"><span class="toc-number">5.</span> <span class="toc-text">启动 VictoriaMetrics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-vmstorage-%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.1.</span> <span class="toc-text">启动 vmstorage 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-vminsert-%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.2.</span> <span class="toc-text">启动 vminsert 实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8-vmselect-%E5%AE%9E%E4%BE%8B"><span class="toc-number">5.3.</span> <span class="toc-text">启动 vmselect 实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F"><span class="toc-number">6.</span> <span class="toc-text">验证是否启动成功</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Reverse" class="lazyload">
+  <div class="sidebar-author-name">Reverse</div>
+  <div class="sidebar-description">每一次的突破，都是自我超越的见证。</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">74</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">10</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=hyhacct@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/hyhacct itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf015;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf07c;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf2bb;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf500;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/tools" aria-label="工具"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf7d9;
+        </div>
+        <div class="sidebar-menu-link">工具</div>
+      </div>
+    
+  
+</div>
+</div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/material-theme@1.0.0/dist/material-theme.umd.js" integrity="sha384-vLev0II0HKFaxkcm+&#x2F;7kX5IGwVFBASkGchU311wmU&#x2F;veIj2bB0UcBkQbW6yw2asK" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js" integrity="sha384-8LyaidD9GPxQQgLJO&#x2F;WRw&#x2F;O2h3BoNq&#x2F;ApI&#x2F;ecpvM6RsrCz2qP2ppBXUKihP4V&#x2F;2d" crossorigin="anonymous"></script>
+
+  <script>
+    window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Reverse",
+          title: "运维 - 部署VictoriaMetrics集群",
+          url: "https://blog.yuhang.run/oam/2025-02-23%2014:19:08/",
+          excerpt: "",
+          description: "",
+          stripContent: "概述为什么会选择 VictoriaMetrics 作为后端存储？既然 Prometheus 已经有了很好的 TSDB，为什么还要选择 VictoriaMetrics？ 其实 VictoriaMetrics 是一个高效、可扩展的时序数据库，旨在处理大规模时序数据。它支持从 Prometheus 导入数据，并且能提供比 Prometheus 更高的存储效率和更低的成本 VictoriaMetrics 优势架构和设计Prometheus:  自包含的监控系统，包括数据抓取、存储、查询等功能。 内置时间",
+          date: "Fri Feb 28 2025 18:51:55 GMT+0800",
+          updated: "Mon Apr 07 2025 19:55:43 GMT+0800",
+          cover: "/images/banner.webp",
+        };
+      </script>
+       
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+        
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+        
+
+
+
+
+
+
+
+
+      
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.7.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+  </html>
+

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont";
-  src: url("//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2") format('woff2');
+  src: url("//at.alicdn.com/t/c/font_.woff2") format('woff2');
   font-display: swap;
 }
 .tag-wrap .archives-tag-list-link:before {
@@ -122,6 +122,12 @@
 .ais-pagination--item__next a:before {
   font-family: "iconfont";
   content: "\e630";
+}
+.icon-github:before {
+  content: "\e619";
+}
+.icon-email:before {
+  content: "\e63c";
 }
 .sidebar-btn-wrapper .sidebar-toc-btn:before {
   font-family: "iconfont";

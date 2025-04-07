@@ -1,0 +1,841 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  
+    
+      data-theme-mode="auto"
+    
+  >
+  <head>
+  
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":true,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://blog.yuhang.run';</script>
+  
+  <title>
+    Shell - JQ命令详解 |
+    
+    Reverse
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CJetBrains%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CJetBrains%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/regular.min.css">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/solid.min.css">
+
+    <link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/brands.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v5-font-face.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@6.5.1/css/v4-font-face.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="JQ 命令简介jq 是一个轻量级且灵活的命令行 JSON 处理器。它的主要特点：  支持复杂的 JSON 数据处理 强大的过滤和转换功能 支持管道操作 内置丰富的函数库  基本语法1jq [选项] &lt;过滤器&gt; [JSON文件]  基础用法1. 基本过滤1234567# 提取单个字段echo &#x27;&#123;&quot;name&quot;: &quot;Tom&quot;, &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell - JQ命令详解">
+<meta property="og:url" content="https://blog.yuhang.run/shell/2025-02-27%2016:13:02/index.html">
+<meta property="og:site_name" content="Reverse">
+<meta property="og:description" content="JQ 命令简介jq 是一个轻量级且灵活的命令行 JSON 处理器。它的主要特点：  支持复杂的 JSON 数据处理 强大的过滤和转换功能 支持管道操作 内置丰富的函数库  基本语法1jq [选项] &lt;过滤器&gt; [JSON文件]  基础用法1. 基本过滤1234567# 提取单个字段echo &#x27;&#123;&quot;name&quot;: &quot;Tom&quot;, &amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-28T10:51:55.327Z">
+<meta property="article:modified_time" content="2025-02-28T10:51:55.327Z">
+<meta property="article:author" content="Reverse">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <img src="/images/taichi.png" alt="loading" />
+        
+      </div>
+      <div class="loading-word">进入光能...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf015;
+          </div>
+          <a class="main-nav-link" href="/">首页</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf07c;
+          </div>
+          <a class="main-nav-link" href="/archives">归档</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf2bb;
+          </div>
+          <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf500;
+          </div>
+          <a class="main-nav-link" href="/friend">友链</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+            &#xf7d9;
+          </div>
+          <a class="main-nav-link" href="/tools">工具</a>
+        </span>
+      
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+  
+</div>
+<header id="header">
+  
+    
+      
+        <picture>
+          
+        </picture>
+        
+          <img crossorigin="anonymous" fetchpriority="high" src="/images/banner.webp" alt="Shell - JQ命令详解">
+        
+      
+    
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">Shell - JQ命令详解</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content"  class="sidebar-right" >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        
+          <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JQ-%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">JQ 命令简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E8%BF%87%E6%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">1. 基本过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">2. 数组操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9D%A1%E4%BB%B6%E8%BF%87%E6%BB%A4"><span class="toc-number">3.3.</span> <span class="toc-text">3. 条件过滤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.1.</span> <span class="toc-text">1. 数据转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">2. 数组处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%8D%E6%9D%82%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.3.</span> <span class="toc-text">3. 复杂查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">实用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-API-%E5%93%8D%E5%BA%94%E5%A4%84%E7%90%86"><span class="toc-number">5.1.</span> <span class="toc-text">1. API 响应处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">5.2.</span> <span class="toc-text">2. 配置文件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text">3. 数据分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7"><span class="toc-number">6.</span> <span class="toc-text">高级技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">6.1.</span> <span class="toc-text">1. 自定义函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">6.2.</span> <span class="toc-text">2. 条件表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%98%E9%87%8F%E4%BD%BF%E7%94%A8"><span class="toc-number">6.3.</span> <span class="toc-text">3. 变量使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-number">8.</span> <span class="toc-text">调试技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">9.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text">总结</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Reverse" class="lazyload">
+  <div class="sidebar-author-name">Reverse</div>
+  <div class="sidebar-description">每一次的突破，都是自我超越的见证。</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">74</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">10</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=hyhacct@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/hyhacct itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf015;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf07c;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf2bb;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf500;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/tools" aria-label="工具"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf7d9;
+        </div>
+        <div class="sidebar-menu-link">工具</div>
+      </div>
+    
+  
+</div>
+</div>
+        
+      
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+  
+  </div>
+  
+</aside>
+
+          <section id="main"><article id="post-shell/2025-02-27 16:13:02" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link" data-aos="zoom-in">
+    <time datetime="2025-02-28T10:51:55.327Z" itemprop="datePublished">2025-02-28</time>
+    <time style="display: none;" id="post-update-time">2025-02-28</time>
+  </span>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Shell/" data-aos="zoom-in">Shell</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h2 id="JQ-命令简介"><a href="#JQ-命令简介" class="headerlink" title="JQ 命令简介"></a>JQ 命令简介</h2><p>jq 是一个轻量级且灵活的命令行 JSON 处理器。它的主要特点：</p>
+<ul>
+<li>支持复杂的 JSON 数据处理</li>
+<li>强大的过滤和转换功能</li>
+<li>支持管道操作</li>
+<li>内置丰富的函数库</li>
+</ul>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq [选项] &lt;过滤器&gt; [JSON文件]</span><br></pre></td></tr></table></figure>
+
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="1-基本过滤"><a href="#1-基本过滤" class="headerlink" title="1. 基本过滤"></a>1. 基本过滤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取单个字段</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25&#125;&#x27;</span> | jq <span class="string">&#x27;.name&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &quot;Tom&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取多个字段</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25, &quot;city&quot;: &quot;Beijing&quot;&#125;&#x27;</span> | jq <span class="string">&#x27;&#123;name, age&#125;&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-数组操作"><a href="#2-数组操作" class="headerlink" title="2. 数组操作"></a>2. 数组操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问数组元素</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,3,4,5]&#x27;</span> | jq <span class="string">&#x27;.[0]&#x27;</span></span><br><span class="line"><span class="comment"># 输出: 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组切片</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,3,4,5]&#x27;</span> | jq <span class="string">&#x27;.[2:4]&#x27;</span></span><br><span class="line"><span class="comment"># 输出: [3,4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组长度</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,3,4,5]&#x27;</span> | jq <span class="string">&#x27;length&#x27;</span></span><br><span class="line"><span class="comment"># 输出: 5</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-条件过滤"><a href="#3-条件过滤" class="headerlink" title="3. 条件过滤"></a>3. 条件过滤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤数组元素</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[&#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25&#125;, &#123;&quot;name&quot;: &quot;Jerry&quot;, &quot;age&quot;: 30&#125;]&#x27;</span> | jq <span class="string">&#x27;.[] | select(.age &gt; 28)&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &#123;&quot;name&quot;: &quot;Jerry&quot;, &quot;age&quot;: 30&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 多条件过滤</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[&#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25&#125;, &#123;&quot;name&quot;: &quot;Jerry&quot;, &quot;age&quot;: 30&#125;]&#x27;</span> | jq <span class="string">&#x27;.[] | select(.age &gt; 20 and .name == &quot;Tom&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h2><h3 id="1-数据转换"><a href="#1-数据转换" class="headerlink" title="1. 数据转换"></a>1. 数据转换</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改字段值</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;name&quot;: &quot;tom&quot;, &quot;age&quot;: 25&#125;&#x27;</span> | jq <span class="string">&#x27;.name |= ascii_upcase&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &#123;&quot;name&quot;: &quot;TOM&quot;, &quot;age&quot;: 25&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加新字段</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;name&quot;: &quot;Tom&quot;&#125;&#x27;</span> | jq <span class="string">&#x27;. + &#123;&quot;age&quot;: 25&#125;&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除字段</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;name&quot;: &quot;Tom&quot;, &quot;age&quot;: 25&#125;&#x27;</span> | jq <span class="string">&#x27;del(.age)&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &#123;&quot;name&quot;: &quot;Tom&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-数组处理"><a href="#2-数组处理" class="headerlink" title="2. 数组处理"></a>2. 数组处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># map 操作</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,3]&#x27;</span> | jq <span class="string">&#x27;map(. * 2)&#x27;</span></span><br><span class="line"><span class="comment"># 输出: [2,4,6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组聚合</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,3,4,5]&#x27;</span> | jq <span class="string">&#x27;add&#x27;</span></span><br><span class="line"><span class="comment"># 输出: 15</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组去重</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,2,3,3,4]&#x27;</span> | jq <span class="string">&#x27;unique&#x27;</span></span><br><span class="line"><span class="comment"># 输出: [1,2,3,4]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-复杂查询"><a href="#3-复杂查询" class="headerlink" title="3. 复杂查询"></a>3. 复杂查询</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 嵌套结构查询</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;user&quot;: &#123;&quot;name&quot;: &quot;Tom&quot;, &quot;contacts&quot;: &#123;&quot;email&quot;: &quot;tom@example.com&quot;&#125;&#125;&#125;&#x27;</span> | jq <span class="string">&#x27;.user.contacts.email&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &quot;tom@example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 条件聚合</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[&#123;&quot;name&quot;: &quot;Tom&quot;, &quot;score&quot;: 80&#125;, &#123;&quot;name&quot;: &quot;Jerry&quot;, &quot;score&quot;: 90&#125;]&#x27;</span> | jq <span class="string">&#x27;map(select(.score &gt; 85)) | length&#x27;</span></span><br><span class="line"><span class="comment"># 输出: 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实用示例"><a href="#实用示例" class="headerlink" title="实用示例"></a>实用示例</h2><h3 id="1-API-响应处理"><a href="#1-API-响应处理" class="headerlink" title="1. API 响应处理"></a>1. API 响应处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理 REST API 响应</span></span><br><span class="line">curl -s <span class="string">&#x27;https://api.example.com/users&#x27;</span> | jq <span class="string">&#x27;.users[] | &#123;name: .name, email: .email&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取特定字段并格式化</span></span><br><span class="line">curl -s <span class="string">&#x27;https://api.example.com/data&#x27;</span> | jq -r <span class="string">&#x27;.items[] | [.id, .name] | @csv&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-配置文件处理"><a href="#2-配置文件处理" class="headerlink" title="2. 配置文件处理"></a>2. 配置文件处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改配置值</span></span><br><span class="line">jq <span class="string">&#x27;.database.port = 5432&#x27;</span> config.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并配置文件</span></span><br><span class="line">jq -s <span class="string">&#x27;.[0] * .[1]&#x27;</span> base.json override.json</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-数据分析"><a href="#3-数据分析" class="headerlink" title="3. 数据分析"></a>3. 数据分析</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 统计分组</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[&#123;&quot;type&quot;: &quot;A&quot;, &quot;value&quot;: 1&#125;, &#123;&quot;type&quot;: &quot;B&quot;, &quot;value&quot;: 2&#125;, &#123;&quot;type&quot;: &quot;A&quot;, &quot;value&quot;: 3&#125;]&#x27;</span> | \</span><br><span class="line">jq <span class="string">&#x27;group_by(.type) | map(&#123;key: .[0].type, sum: map(.value) | add&#125;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算平均值</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[&#123;&quot;score&quot;: 85&#125;, &#123;&quot;score&quot;: 92&#125;, &#123;&quot;score&quot;: 78&#125;]&#x27;</span> | jq <span class="string">&#x27;[.[].score] | add/length&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h2><h3 id="1-自定义函数"><a href="#1-自定义函数" class="headerlink" title="1. 自定义函数"></a>1. 自定义函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义和使用函数</span></span><br><span class="line">jq <span class="string">&#x27;def add_tax(rate): . * (1 + rate); [1,2,3] | map(add_tax(0.1))&#x27;</span></span><br><span class="line"><span class="comment"># 输出: [1.1,2.2,3.3]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-条件表达式"><a href="#2-条件表达式" class="headerlink" title="2. 条件表达式"></a>2. 条件表达式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if-then-else</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;value&quot;: 15&#125;&#x27;</span> | jq <span class="string">&#x27;if .value &gt; 10 then &quot;high&quot; else &quot;low&quot; end&#x27;</span></span><br><span class="line"><span class="comment"># 输出: &quot;high&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-变量使用"><a href="#3-变量使用" class="headerlink" title="3. 变量使用"></a>3. 变量使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;items&quot;: [1,2,3]&#125;&#x27;</span> | jq <span class="string">&#x27;def sum(f): reduce .[] as $item (0; . + ($item | f)); .items | sum(.)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
+<li>使用 <code>-c</code> 选项输出紧凑格式</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq -c <span class="string">&#x27;.&#x27;</span> data.json</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用 <code>--stream</code> 处理大文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jq --stream <span class="string">&#x27;.&#x27;</span> large.json</span><br></pre></td></tr></table></figure>
+
+<h2 id="调试技巧"><a href="#调试技巧" class="headerlink" title="调试技巧"></a>调试技巧</h2><ol>
+<li>使用 <code>debug</code> 函数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;[1,2,3]&#x27;</span> | jq <span class="string">&#x27;debug | map(. * 2)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用 <code>-r</code> 选项去除引号</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&#123;&quot;name&quot;: &quot;Tom&quot;&#125;&#x27;</span> | jq -r <span class="string">&#x27;.name&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>注意转义字符的使用</li>
+<li>处理大文件时注意内存使用</li>
+<li>复杂查询可能影响性能</li>
+<li>注意 JSON 数据的编码问题</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>jq 是一个强大的 JSON 处理工具，它的优势在于：</p>
+<ul>
+<li>强大的查询语法</li>
+<li>丰富的内置函数</li>
+<li>灵活的数据转换能力</li>
+<li>良好的命令行集成</li>
+</ul>
+<p>掌握 jq 可以大大提高 JSON 数据处理效率，特别是在处理 API 响应和配置文件时。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+      
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          
+          
+            <img data-src="/images/banner.webp" data-sizes="auto" alt="Shell - Find命令详解" class="lazyload">
+          
+        
+        <a href="/shell/2025-02-27%2015:41:09/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            Shell - Find命令详解
+          
+        </h3>
+      </div>
+    
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="Shell - YQ命令详解" class="lazyload">
+        
+      
+      <a href="/shell/2025-02-27%2016:16:16/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          Shell - YQ命令详解
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+
+
+
+
+
+
+
+
+</section>
+        </div>
+        
+        
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+      
+      
+        2025
+      
+      <span class="footer-info-sep rotate"></span>
+      Reverse
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        43.3k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        03:00
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JQ-%E5%91%BD%E4%BB%A4%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">JQ 命令简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E8%BF%87%E6%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">1. 基本过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">2. 数组操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9D%A1%E4%BB%B6%E8%BF%87%E6%BB%A4"><span class="toc-number">3.3.</span> <span class="toc-text">3. 条件过滤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">高级用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.1.</span> <span class="toc-text">1. 数据转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86"><span class="toc-number">4.2.</span> <span class="toc-text">2. 数组处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%8D%E6%9D%82%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.3.</span> <span class="toc-text">3. 复杂查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">实用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-API-%E5%93%8D%E5%BA%94%E5%A4%84%E7%90%86"><span class="toc-number">5.1.</span> <span class="toc-text">1. API 响应处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">5.2.</span> <span class="toc-text">2. 配置文件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text">3. 数据分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7"><span class="toc-number">6.</span> <span class="toc-text">高级技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0"><span class="toc-number">6.1.</span> <span class="toc-text">1. 自定义函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">6.2.</span> <span class="toc-text">2. 条件表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%98%E9%87%8F%E4%BD%BF%E7%94%A8"><span class="toc-number">6.3.</span> <span class="toc-text">3. 变量使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">性能优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-number">8.</span> <span class="toc-text">调试技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">9.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text">总结</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Reverse" class="lazyload">
+  <div class="sidebar-author-name">Reverse</div>
+  <div class="sidebar-description">每一次的突破，都是自我超越的见证。</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">74</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">10</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=hyhacct@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/hyhacct itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf015;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf07c;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf2bb;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf500;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/tools" aria-label="工具"></a>
+        <div class="sidebar-menu-icon icon ">
+          &#xf7d9;
+        </div>
+        <div class="sidebar-menu-link">工具</div>
+      </div>
+    
+  
+</div>
+</div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/material-theme@1.0.0/dist/material-theme.umd.js" integrity="sha384-vLev0II0HKFaxkcm+&#x2F;7kX5IGwVFBASkGchU311wmU&#x2F;veIj2bB0UcBkQbW6yw2asK" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js" integrity="sha384-8LyaidD9GPxQQgLJO&#x2F;WRw&#x2F;O2h3BoNq&#x2F;ApI&#x2F;ecpvM6RsrCz2qP2ppBXUKihP4V&#x2F;2d" crossorigin="anonymous"></script>
+
+  <script>
+    window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Reverse",
+          title: "Shell - JQ命令详解",
+          url: "https://blog.yuhang.run/shell/2025-02-27%2016:13:02/",
+          excerpt: "",
+          description: "",
+          stripContent: "JQ 命令简介jq 是一个轻量级且灵活的命令行 JSON 处理器。它的主要特点：  支持复杂的 JSON 数据处理 强大的过滤和转换功能 支持管道操作 内置丰富的函数库  基本语法1jq [选项] &amp;lt;过滤器&amp;gt; [JSON文件]  基础用法1. 基本过滤1234567# 提取单个字段echo &amp;#x27;&amp;#123;&amp;quot;name&amp;quot;: &amp;quot;Tom&amp;quot;, &amp;quot;age&amp;quot;: 25&amp;#125;&amp;#x27; | jq &amp;#x27;.name&amp;#x",
+          date: "Fri Feb 28 2025 18:51:55 GMT+0800",
+          updated: "Fri Feb 28 2025 18:51:55 GMT+0800",
+          cover: "/images/banner.webp",
+        };
+      </script>
+       
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+        
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+        
+
+
+
+
+
+
+
+
+      
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.7.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+  </html>
+
