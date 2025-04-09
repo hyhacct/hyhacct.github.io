@@ -467,9 +467,9 @@ home_categories:
   enable: true
   content:
     - categories: Minecraft # string (single-layer category) or array (multi-layer category)
-      cover: # empty means random cover
-    - categories: Hexo
-      cover:
+      cover: /images/Minecraft.png # empty means random cover
+    - categories: Naraka
+      cover: /images/Naraka.jpg
 
 # whether to display the notification when the article is outdated
 outdate:
