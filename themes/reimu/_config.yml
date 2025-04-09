@@ -458,17 +458,17 @@ clipboard:
   success: 复制成功(*^▽^*)
   fail: 复制失败 (ﾟ⊿ﾟ)ﾂ
   copyright: # whether to add a copyright for the clipped content
-    enable: true
+    enable: false
     count: 50 # The number of characters when the copyright is displayed
     content: 本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！
 
 # show categories card on home page
 home_categories:
-  enable: false
+  enable: true
   content:
-    - categories: # string (single-layer category) or array (multi-layer category)
+    - categories: Minecraft # string (single-layer category) or array (multi-layer category)
       cover: # empty means random cover
-    - categories:
+    - categories: Hexo
       cover:
 
 # whether to display the notification when the article is outdated
