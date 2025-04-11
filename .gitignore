@@ -5,4 +5,5 @@ db.json
 *.log
 .deploy*/
 _multiconfig.yml
-*/public/*
+**/public/**
+public

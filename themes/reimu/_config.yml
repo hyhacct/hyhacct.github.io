@@ -22,7 +22,8 @@ menu:
     url: /tools
     icon: f7d9
 
-banner: "/images/banner.webp" # which means themes/reimu/source/images/banner.webp
+# banner: https://s3.bmp.ovh/imgs/2025/04/11/9164c2bb0a478f00.png # which means themes/reimu/source/images/banner.webp
+banner: /images/banner.webp # which means themes/reimu/source/images/banner.webp
 # You can also write it in the form of the following url
 # banner: "https://example.com"
 
@@ -65,7 +66,8 @@ open_graph:
     #google_plus: <g+:profile_link>
     #fb_admins: <fb:admin_id>
     #fb_app_id: <fb:app_id>
-    default_og_image: /images/banner.webp # the default og:image for Open Graph, support absolute path
+    default_og_image: https://s3.bmp.ovh/imgs/2025/04/11/9164c2bb0a478f00.png # the default og:image for Open Graph, support absolute path
+    # default_og_image: https://s3.bmp.ovh/imgs/2025/04/11/9164c2bb0a478f00.png # the default og:image for Open Graph, support absolute path
 
 # Content
 excerpt_link: Read More
@@ -467,9 +469,9 @@ home_categories:
   enable: true
   content:
     - categories: Minecraft # string (single-layer category) or array (multi-layer category)
-      cover: /images/Minecraft.png # empty means random cover
+      cover: https://s3.bmp.ovh/imgs/2025/04/11/6a7f71692412d943.png # empty means random cover
     - categories: Naraka
-      cover: /images/Naraka.jpg
+      cover: https://s3.bmp.ovh/imgs/2025/04/11/bf7d160c865c1512.jpg
 
 # whether to display the notification when the article is outdated
 outdate:
