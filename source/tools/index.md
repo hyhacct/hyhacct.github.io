@@ -13,3 +13,4 @@ json to go: https://transform.tools/json-to-go
 
 在线抠图: https://www.photoroom.com/zh/tools/transparent-background
 
+在线生成CA证书，私钥等: https://appgwbackendcertgenerator.azurewebsites.net
