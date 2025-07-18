@@ -12,12 +12,12 @@ site:
   subtitle: Reverse Blog
   author: Reverse
   nick: hyhacct
-  description:
+  description: 每一次的突破，都是自我超越的见证。
   link: "/"
-  language: en
+  language: cn
   multi_language: true
-  logo:
-  avatar: https://s3.bmp.ovh/imgs/2025/07/17/9182254090efe94c.jpg
+  logo: /images/logo.png
+  avatar: /images/avatar.jpg
   beian:
     number: ""
     link: ""
@@ -26,7 +26,7 @@ site:
     link: ""
   # Start date of the blog YYY-MM-DD
   # 博客开始运行日期
-  started_date: 2025-07-17
+  started_date: 2025-07-15
   # Path unique identifier (文章 URL 唯一标识)
   # uid: use unique ID
   # slug: use generated slug base on title
@@ -69,31 +69,20 @@ theme:
     # color_1: "#24c6dc"
     # color_2: "#5433ff"
     # color_3: "#ff0099"
-    color_1: "#A28DD2"
-    color_2: "#ABEEEB"
-    color_3: "#FFFFFF"
+    color_1: "#A0E7E5" # 水蓝薄荷
+    color_2: "#B4F8C8" # 苹果绿
+    color_3: "#FBE7C6" # 淡杏色
 
 #! ---------------------------------------------------------------
 #! Social Configs
 #! @docs https://aurora.tridiamond.tech/guide/social.html
 #! ---------------------------------------------------------------
 socials:
+  github: "https://github.com/hyhacct"
   customs:
-  ##! Example:
-  ##! --- Using SVG
-  # bilibili:
-  #   icon: http://localhost:4000/svg/bilibili.svg
-  #   link: https://live.bilibili.com/22619211
-
-  ##! --- Using IconFont
-  # baidu:
-  #   icon: iconfont icon-baidu
-  #   link: https://live.bilibili.com/22619211
-
-  ##! --- Using FontAwesome
-  # book:
-  #   icon: far fa-address-book
-  #   link: https://live.bilibili.com/22619211
+    email:
+      icon: /images/icon/email.png
+      link: hyhacct@outlook.com
 
 #! ---------------------------------------------------------------
 #! Site Meta Configs
@@ -121,7 +110,7 @@ gitalk:
   owner: "hyhacct" ## owner name
   admin: ["hyhacct"] ## ['admin_name']
   id: uid
-  language: en
+  language: cn
   distractionFreeMode: true
   recentComment: true
   proxy: ""
@@ -135,7 +124,7 @@ valine:
   avatar: ""
   placeholder: Leave your thoughts behind~
   visitor: true
-  lang: en
+  lang: cn
   avatarForce: false
   meta: ["nick", "mail"]
   requiredFields: ["nick", "mail"]
@@ -149,7 +138,7 @@ twikoo:
   recentComment: true
   envId: xxxxxxxxxxxxxxx # 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
   # region: ap-guangzhou # 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
-  lang: "en" # 用于手动设定评论区语言，支持的语言列表 https://github.com/imaegoo/twikoo/blob/main/src/client/utils/i18n/index.js
+  lang: "cn" # 用于手动设定评论区语言，支持的语言列表 https://github.com/imaegoo/twikoo/blob/main/src/client/utils/i18n/index.js
 
 # Waline comment plugin
 # see https://waline.js.org/guide/get-started/
