@@ -114,7 +114,7 @@ gitalk:
   autoExpand: true
   clientID: "Ov23liuxIK4SbfB9WYIg"
   clientSecret: "ab314a3a229ff9ec9924fd314a34aab0cf3a1888"
-  repo: "250717-hexo-blog" ## dev-blo-comments
+  repo: "hyhacct.github.io" ## dev-blo-comments
   owner: "hyhacct" ## owner name
   admin: ["hyhacct"] ## ['admin_name']
   id: uid
