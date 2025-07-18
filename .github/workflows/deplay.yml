@@ -3,15 +3,15 @@ name: Deploy Hexo Blog to GitHub Pages
 on:
   push:
     branches:
-      - main  # 你的默认分支，可以改为 master 或其他
+      - main # 你的默认分支，可以改为 master 或其他
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      pages: write      # 允许写入 GitHub Pages
-      id-token: write   # 允许使用 GitHub Token
-    environment:        # 移动到 jobs 级别
+      pages: write # 允许写入 GitHub Pages
+      id-token: write # 允许使用 GitHub Token
+    environment: # 移动到 jobs 级别
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
@@ -20,13 +20,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive  # 如果主题使用 Git 子模块，启用此项
+          submodules: recursive # 如果主题使用 Git 子模块，启用此项
 
       # 2. 设置 Node.js 环境
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"  # 使用 Node.js 20，确保兼容性
+          node-version: "20" # 使用 Node.js 20，确保兼容性
 
       # 3. 缓存 NPM 依赖
       - name: Cache NPM Dependencies
@@ -53,7 +53,7 @@ jobs:
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public  # Hexo 默认输出目录
+          path: ./public # Hexo 默认输出目录
 
       # 7. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
