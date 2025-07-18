@@ -66,8 +66,11 @@ theme:
   profile_shape: circle # support `circle`, `diamond`, `rounded`
   feature: true
   gradient:
-    color_1: "#24c6dc"
-    color_2: "#5433ff"
+    # color_1: "#24c6dc"
+    # color_2: "#5433ff"
+    # color_3: "#ff0099"
+    color_1: "#A28DD2"
+    color_2: "#F9C2EA"
     color_3: "#ff0099"
 
 #! ---------------------------------------------------------------
@@ -216,4 +219,6 @@ footer_links:
 #! ---------------------------------------------------------------
 shiki:
   enable: true
+  theme:
+  externalTheme:
   backgroundColor: "#1a1a1a"
