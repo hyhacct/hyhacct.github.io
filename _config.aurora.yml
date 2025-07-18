@@ -14,7 +14,7 @@ site:
   nick: hyhacct
   description:
   link: "/"
-  language: cn
+  language: en
   multi_language: true
   logo:
   avatar: https://s3.bmp.ovh/imgs/2025/07/17/9182254090efe94c.jpg
@@ -118,7 +118,7 @@ gitalk:
   owner: "hyhacct" ## owner name
   admin: ["hyhacct"] ## ['admin_name']
   id: uid
-  language: cn
+  language: en
   distractionFreeMode: true
   recentComment: true
   proxy: ""

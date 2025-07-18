@@ -3,7 +3,9 @@ name: Deploy Hexo to GitHub Pages
 on:
   push:
     branches:
-      - main # 或者是 master，根据你的默认分支修改
+      - main
+
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -16,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18" # 根据你的项目需要修改 Node 版本
+          node-version: "18"
           cache: "npm"
 
       - name: Install dependencies
@@ -24,13 +26,14 @@ jobs:
           npm install -g hexo-cli
           npm install
 
-      - name: Clean and generate Hexo site
+      - name: Generate Hexo site
         run: |
           hexo clean
           hexo generate
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.BLOG_TOKEN }}
-          publish_dir: ./public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages # 👈 必须指定
+          publish_dir: ./public # 👈 Hexo 默认输出目录
