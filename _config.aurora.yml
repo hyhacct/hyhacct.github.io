@@ -69,9 +69,12 @@ theme:
     # color_1: "#24c6dc"
     # color_2: "#5433ff"
     # color_3: "#ff0099"
-    color_1: "#A0E7E5" # 水蓝薄荷
-    color_2: "#B4F8C8" # 苹果绿
-    color_3: "#FBE7C6" # 淡杏色
+    # color_1: "#A0E7E5" # 水蓝薄荷
+    # color_2: "#B4F8C8" # 苹果绿
+    # color_3: "#FBE7C6" # 淡杏色
+    color_1: "#2E7D7A" # 水蓝薄荷
+    color_2: "#4A9065" # 苹果绿
+    color_3: "#D9A66B" # 淡杏色
 
 #! ---------------------------------------------------------------
 #! Social Configs

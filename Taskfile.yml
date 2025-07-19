@@ -24,3 +24,7 @@ includes:
   go:
     taskfile: .taskfile/go.yml
     optional: true
+
+  npm:
+    taskfile: .taskfile/npm.yml
+    optional: true
