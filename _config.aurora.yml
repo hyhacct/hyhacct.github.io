@@ -69,9 +69,6 @@ theme:
     # color_1: "#24c6dc"
     # color_2: "#5433ff"
     # color_3: "#ff0099"
-    # color_1: "#A0E7E5" # 水蓝薄荷
-    # color_2: "#B4F8C8" # 苹果绿
-    # color_3: "#FBE7C6" # 淡杏色
     color_1: "#2E7D7A" # 水蓝薄荷
     color_2: "#4A9065" # 苹果绿
     color_3: "#D9A66B" # 淡杏色
@@ -90,9 +87,9 @@ socials:
 site_meta:
   cdn: en
   favicon:
-  description: ""
-  keywords: ""
-  author: ""
+  description: "每一次的突破，都是自我超越的见证。"
+  keywords: "Reverse, hyhacct, 博客, 运维开发, Go, Vue.js, Docker, Linux, IT技术"
+  author: "Reverse"
 
 #! ---------------------------------------------------------------
 #! Plugins
@@ -160,7 +157,7 @@ busuanzi:
   enable: false
 
 copy_protection:
-  enable: true
+  enable: false
   author:
     cn: 作者
     en: Author
@@ -205,8 +202,6 @@ aurora_bot:
       - 拿小拳拳锤你胸口！
       - 学习使我们快乐，快乐使我们更想学习～
       - 你知道吗？你可以<span>点击我</span>返回页面顶部哦！～
-      # 这是一个特殊的函数，它将触发 quotes API
-      # 和 Dia 会说出每日引用的信息。
       - showQuote
 
     # ======================================================
@@ -222,7 +217,7 @@ aurora_bot:
     # ======================================================
     # 这将在用户返回窗口时触发。
     # ======================================================
-    visibility_change: 老朋友，你怎么才回来呀～
+    visibility_change: 嘿,你刚刚干啥去了～
 
     # ======================================================
     # 欢迎留言，号码是一天中的时间。
