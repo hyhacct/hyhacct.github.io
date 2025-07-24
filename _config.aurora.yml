@@ -55,7 +55,7 @@ menu:
   About: true
   Tags: true
   Archives: true
-  Friends: false
+  Links: true
 
 #! ---------------------------------------------------------------
 #! Theme Config
