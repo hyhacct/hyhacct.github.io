@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: false
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
