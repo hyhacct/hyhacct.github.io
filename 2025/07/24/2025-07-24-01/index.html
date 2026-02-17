@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Reverse">
+    
+    <title>
+        
+            搭建MC服务器 |
+        
+        Reverse
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Reverse","author":"Reverse","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","links":"/links","about":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"All To Be Nice","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/hyhacct","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":"hyhacct@outlook.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2026,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"赣ICP备2025068132号-2","link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Reverse
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        搭建MC服务器
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Reverse</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-07-24 17:50:15</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Feb 17 2026 08:59:42 GMT+0000">2026-02-17 08:59:42</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Minecraft/">Minecraft</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Minecraft/">Minecraft</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>3k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>简单介绍一下 Minecraft 《我的世界》如何搭建属于自己的服务器。</p>
+<p>本篇文章主要介绍在<code>Linux</code>下搭建，而非 Windows。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>你可以在本地起一个 Linux 系统的虚拟机，或者前往云平台购买一台轻量级云服务器，如果玩家少的话配置低一点也够了，比如 2H2G。</p>
+<p>这里我准备了一台 Ubuntu 主机，先来准备一下环境。</p>
+<blockquote>
+<p>注意下，如果这边安装的软件包无法成功安装的话，就去<code>换一下apt源</code>再尝试安装，如果不知道怎么换源，就在当前博客的搜索中搜索<code>换源</code>，找到文档后跟着操作即可！</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt -y install openjdk-21-jre-headless</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载服务端"><a href="#下载服务端" class="headerlink" title="下载服务端"></a>下载服务端</h2><blockquote>
+<p>他的官网好像不支持中文，如果看不懂的话可以去下载一个<code>浏览器翻译插件</code>或者下载一个<code>有道翻译</code>去阅读，会轻松一点。</p>
+</blockquote>
+<p>访问<code>Minecraft官网</code>(<a class="link"   target="_blank" rel="noopener" href="https://www.minecraft.net/en-us/download/server)%E5%8E%BB%E4%B8%8B%E8%BD%BD%E6%9C%8D%E5%8A%A1%E7%AB%AF%E3%80%82" >https://www.minecraft.net/en-us/download/server)去下载服务端。<i class="fas fa-external-link-alt"></i></a></p>
+<p>比如我这里直接下载他的<code>minecraft_server.1.21.5.jar</code>这个包。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://hyhacct.github.io/picx-images-hosting/hexo/001.lw9aqgo2k.png"
+                       
+                 ></p>
+<blockquote>
+<p>你可以在本地下载好了之后上传到服务器里面，也可以直接用下面这个命令去服务器终端执行，直接下载。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar</span><br></pre></td></tr></table></figure>
+
+<h2 id="尝试运行服务端"><a href="#尝试运行服务端" class="headerlink" title="尝试运行服务端"></a>尝试运行服务端</h2><p>服务端的 jar 包下载到服务器后，你可以直接运行这个 jar 包，看看能不能运行起来。</p>
+<blockquote>
+<p>注意，因为我下载下来的服务端 jar 包名字就叫<code>server.jar</code>，所以我这里使用的是相对路径指定这个 jar 包的，你们要根据实际的文件名字来。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx1024M -Xms1024M -jar ./server.jar nogui</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意！首次运行他会自动结束，并且在当前目录位置释放一些配置以及支持库等。</p>
+<p>并且会在当前目录下创建一个<code>eula.txt</code>文件，这个文件的作用是让你同意其最终用户许可协议（<code>EULA，End User License Agreement</code>）才能运行</p>
+<p>你可以使用<code>vim eula.txt</code>去编辑，或者使用下面的命令。</p>
+<p>将<code>eula</code>这个选项，从<code>eula=false</code>改到<code>eula=true</code>即可。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/eula=false/eula=true/g&#x27;</span> ./eula.txt</span><br></pre></td></tr></table></figure>
+
+<p>接着再次运行服务端，就可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx1024M -Xms1024M -jar ./server.jar nogui</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置文件介绍"><a href="#配置文件介绍" class="headerlink" title="配置文件介绍"></a>配置文件介绍</h2><p>在当前目录下除了<code>eula.txt</code>文件之外，还有一个<code>server.properties</code>文件。</p>
+<p>这是一个<code>Minecraft服务端的配置文件</code>，其中包含了许多设置项，用来控制服务器的行为和玩家的体验。</p>
+<p>下面将对文件中每个配置项进行说明：</p>
+<ol>
+<li><p><strong>accepts-transfers</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否允许玩家从其他服务器转移到当前服务器。设置为<code>false</code>表示禁止玩家从其他服务器转移。</li>
+</ul>
+</li>
+<li><p><strong>allow-flight</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否允许玩家飞行。在生存模式下通常禁用飞行，设置为<code>true</code>时玩家可以飞行。</li>
+</ul>
+</li>
+<li><p><strong>allow-nether</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否允许玩家进入下界。设置为<code>false</code>时，玩家将无法进入下界。</li>
+</ul>
+</li>
+<li><p><strong>broadcast-console-to-ops</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否将控制台输出信息广播给所有 OP 玩家。如果设置为<code>true</code>，控制台的命令输出会显示给所有有 OP 权限的玩家。</li>
+</ul>
+</li>
+<li><p><strong>broadcast-rcon-to-ops</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否将 RCON 命令的输出广播给所有 OP 玩家。</li>
+</ul>
+</li>
+<li><p><strong>bug-report-link</strong></p>
+<ul>
+<li><strong>可选值</strong>: URL (字符串)</li>
+<li><strong>作用</strong>: 提供一个链接，玩家可以通过它报告游戏中的错误。此项为空则没有链接。</li>
+</ul>
+</li>
+<li><p><strong>difficulty</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>peaceful</code>、<code>easy</code>、<code>normal</code>、<code>hard</code></li>
+<li><strong>作用</strong>: 设定服务器的难度。</li>
+<li><code>peaceful</code> 和平模式</li>
+<li><code>easy</code> 简单模式</li>
+<li><code>normal</code> 普通难度</li>
+<li><code>hard</code> 困难模式</li>
+</ul>
+</li>
+<li><p><strong>enable-command-block</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否启用命令方块。命令方块允许执行自动化命令或事件。</li>
+</ul>
+</li>
+<li><p><strong>enable-jmx-monitoring</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用 JMX 监控，JMX 用于监控服务器性能。</li>
+</ul>
+</li>
+<li><p><strong>enable-query</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用 Minecraft 查询协议，允许外部程序查询服务器状态。</li>
+</ul>
+</li>
+<li><p><strong>enable-rcon</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用 RCON（远程控制）功能。<code>true</code>时，允许通过远程命令控制服务器。</li>
+</ul>
+</li>
+<li><p><strong>enable-status</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否启用服务器状态显示，允许玩家查询服务器状态。</li>
+</ul>
+</li>
+<li><p><strong>enforce-secure-profile</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用正版账户验证。设置为<code>true</code>时，玩家需要拥有正版 Minecraft 账户。</li>
+</ul>
+</li>
+<li><p><strong>enforce-whitelist</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否启用白名单。启用时只有列入白名单的玩家才能加入服务器。</li>
+</ul>
+</li>
+<li><p><strong>entity-broadcast-range-percentage</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>0-100</code>（百分比）</li>
+<li><strong>作用</strong>: 设置实体广播的范围。例如，100%表示所有实体都在最大范围内广播。</li>
+</ul>
+</li>
+<li><p><strong>force-gamemode</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否强制所有玩家在加入时使用指定的游戏模式（<code>gamemode</code>）。<code>true</code>表示强制玩家进入指定模式。</li>
+</ul>
+</li>
+<li><p><strong>function-permission-level</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>0</code>、<code>1</code>、<code>2</code>、<code>3</code>、<code>4</code></li>
+<li><strong>作用</strong>: 设置玩家可以执行的函数命令权限等级。等级越高，权限越大。</li>
+</ul>
+</li>
+<li><p><strong>gamemode</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>survival</code>、<code>creative</code>、<code>adventure</code>、<code>spectator</code></li>
+<li><strong>作用</strong>: 设置玩家的默认游戏模式。<code>survival</code>表示生存模式，<code>creative</code>表示创造模式，<code>adventure</code>表示冒险模式，<code>spectator</code>表示旁观模式。</li>
+</ul>
+</li>
+<li><p><strong>generate-structures</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否生成结构，如村庄、废弃矿井等。设置为<code>false</code>时不会生成这些结构。</li>
+</ul>
+</li>
+<li><p><strong>generator-settings</strong></p>
+<ul>
+<li><strong>可选值</strong>: JSON 配置字符串</li>
+<li><strong>作用</strong>: 用于自定义世界生成设置。例如，可以定义自定义的地形生成规则。</li>
+</ul>
+</li>
+<li><p><strong>hardcore</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用硬核模式。硬核模式下玩家死亡后会永久消失。</li>
+</ul>
+</li>
+<li><p><strong>hide-online-players</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否隐藏在线玩家。设置为<code>true</code>时，玩家无法看到其他在线玩家。</li>
+</ul>
+</li>
+<li><p><strong>initial-disabled-packs</strong></p>
+<ul>
+<li><strong>可选值</strong>: 资源包列表（字符串数组）</li>
+<li><strong>作用</strong>: 初始禁用的资源包列表。</li>
+</ul>
+</li>
+<li><p><strong>initial-enabled-packs</strong></p>
+<ul>
+<li><strong>可选值</strong>: 资源包列表（字符串数组）</li>
+<li><strong>作用</strong>: 初始启用的资源包列表。</li>
+</ul>
+</li>
+<li><p><strong>level-name</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（任意世界名称）</li>
+<li><strong>作用</strong>: 设置世界名称。默认值是“world”。</li>
+</ul>
+</li>
+<li><p><strong>level-seed</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（任意种子）</li>
+<li><strong>作用</strong>: 设置世界生成的种子，影响生成的世界。为空时随机生成。</li>
+</ul>
+</li>
+<li><p><strong>level-type</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>minecraft:normal</code>、<code>minecraft:flat</code>、<code>minecraft:largeBiomes</code>、<code>minecraft:amplified</code>、<code>minecraft:custom</code></li>
+<li><strong>作用</strong>: 设置世界类型。<code>normal</code>是普通世界，<code>flat</code>是平坦世界，<code>largeBiomes</code>是大生物群落，<code>amplified</code>是放大生物群落。</li>
+</ul>
+</li>
+<li><p><strong>log-ips</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否记录玩家的 IP 地址。</li>
+</ul>
+</li>
+<li><p><strong>max-chained-neighbor-updates</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（例如 1000000）</li>
+<li><strong>作用</strong>: 设置每次更新过程中允许的最大链式邻居更新次数。</li>
+</ul>
+</li>
+<li><p><strong>max-players</strong></p>
+<ul>
+<li><strong>可选值</strong>: 1-1000（玩家数量）</li>
+<li><strong>作用</strong>: 设置服务器最多允许的玩家数。</li>
+</ul>
+</li>
+<li><p><strong>max-tick-time</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（毫秒）</li>
+<li><strong>作用</strong>: 设置每个 tick（更新周期）允许的最大时间，超过此值服务器会认为发生了性能问题。</li>
+</ul>
+</li>
+<li><p><strong>max-world-size</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（世界的最大大小）</li>
+<li><strong>作用</strong>: 设置世界的最大大小（以区块为单位）。</li>
+</ul>
+</li>
+<li><p><strong>motd</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（任何文本）</li>
+<li><strong>作用</strong>: 设置服务器的描述，显示在玩家加入时。</li>
+</ul>
+</li>
+<li><p><strong>network-compression-threshold</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（字节数）</li>
+<li><strong>作用</strong>: 设置网络压缩的阈值。大于此值的网络数据会被压缩。</li>
+</ul>
+</li>
+<li><p><strong>online-mode</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用在线模式时，要求玩家拥有正版 Minecraft 账户。</li>
+</ul>
+</li>
+<li><p><strong>op-permission-level</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>1</code>、<code>2</code>、<code>3</code>、<code>4</code></li>
+<li><strong>作用</strong>: 设置 OP 玩家的权限级别，数值越大，OP 能执行的命令越多。</li>
+</ul>
+</li>
+<li><p><strong>pause-when-empty-seconds</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（秒）</li>
+<li><strong>作用</strong>: 设置服务器在没有玩家时暂停的时间（秒）。</li>
+</ul>
+</li>
+<li><p><strong>player-idle-timeout</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（秒）</li>
+<li><strong>作用</strong>: 设置玩家在没有操作时被踢出的时间。</li>
+</ul>
+</li>
+<li><p><strong>prevent-proxy-connections</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 防止代理连接。<code>true</code>时不允许使用代理连接。</li>
+</ul>
+</li>
+<li><p><strong>pvp</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否启用玩家间的战斗。</li>
+</ul>
+</li>
+<li><p><strong>query.port</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（端口号）</li>
+<li><strong>作用</strong>: 设置查询端口。</li>
+</ul>
+</li>
+<li><p><strong>rate-limit</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（连接次数）</li>
+<li><strong>作用</strong>: 限制每秒连接的次数。设置为 0 表示没有限制。</li>
+</ul>
+</li>
+<li><p><strong>rcon.password</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（密码）</li>
+<li><strong>作用</strong>: 设置 RCON 密码，用于远程管理服务器。</li>
+</ul>
+</li>
+<li><p><strong>rcon.port</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（端口号）</li>
+<li><strong>作用</strong>: 设置 RCON 端口。</li>
+</ul>
+</li>
+<li><p><strong>region-file-compression</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>none</code>、<code>zlib</code>、<code>deflate</code></li>
+<li><strong>作用</strong>: 设置区域文件的压缩方式。</li>
+</ul>
+</li>
+<li><p><strong>require-resource-pack</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否强制玩家使用指定的资源包。</li>
+</ul>
+</li>
+<li><p><strong>resource-pack</strong></p>
+<ul>
+<li><strong>可选值</strong>: URL（资源包的链接）</li>
+<li><strong>作用</strong>: 设置资源包的下载链接。</li>
+</ul>
+</li>
+<li><p><strong>resource-pack-id</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（资源包 ID）</li>
+<li><strong>作用</strong>: 设置资源包的唯一 ID。</li>
+</ul>
+</li>
+<li><p><strong>resource-pack-prompt</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（提示文本）</li>
+<li><strong>作用</strong>: 设置资源包提示文本。</li>
+</ul>
+</li>
+<li><p><strong>resource-pack-sha1</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（SHA1 值）</li>
+<li><strong>作用</strong>: 设置资源包的 SHA1 哈希值，用于验证资源包的完整性。</li>
+</ul>
+</li>
+<li><p><strong>server-ip</strong></p>
+<ul>
+<li><strong>可选值</strong>: 字符串（IP 地址）</li>
+<li><strong>作用</strong>: 设置服务器绑定的 IP 地址。</li>
+</ul>
+</li>
+<li><p><strong>server-port</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（端口号）</li>
+<li><strong>作用</strong>: 设置服务器监听的端口号。</li>
+</ul>
+</li>
+<li><p><strong>simulation-distance</strong></p>
+<ul>
+<li><strong>可选值</strong>: 1-32</li>
+<li><strong>作用</strong>: 设置模拟区域的大小。</li>
+</ul>
+</li>
+<li><p><strong>spawn-monsters</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否允许怪物生成。</li>
+</ul>
+</li>
+<li><p><strong>spawn-protection</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数（方块数量）</li>
+<li><strong>作用</strong>: 设置生成保护范围，防止玩家在出生点附近破坏环境。</li>
+</ul>
+</li>
+<li><p><strong>sync-chunk-writes</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否同步写入区块数据。</li>
+</ul>
+</li>
+<li><p><strong>text-filtering-config</strong></p>
+<ul>
+<li><strong>可选值</strong>: JSON 配置</li>
+<li><strong>作用</strong>: 设置文本过滤器配置。</li>
+</ul>
+</li>
+<li><p><strong>text-filtering-version</strong></p>
+<ul>
+<li><strong>可选值</strong>: 整数</li>
+<li><strong>作用</strong>: 设置文本过滤器的版本。</li>
+</ul>
+</li>
+<li><p><strong>use-native-transport</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 是否启用原生传输协议。</li>
+</ul>
+</li>
+<li><p><strong>view-distance</strong></p>
+<ul>
+<li><strong>可选值</strong>: 3-32</li>
+<li><strong>作用</strong>: 设置玩家的渲染视距，影响可见范围。</li>
+</ul>
+</li>
+<li><p><strong>white-list</strong></p>
+<ul>
+<li><strong>可选值</strong>: <code>true</code> 或 <code>false</code></li>
+<li><strong>作用</strong>: 启用或禁用白名单功能。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>如果有些参数看不懂，那就保持默认就行，别去动他了，防止出现意外情况。</p>
+<p>比如我已经修改好了一份配置，做了如下修改：</p>
+<ul>
+<li><ol>
+<li>将游戏模式调整为困难模式</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>启用命令方块</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>允许非正版账户玩家加入</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>世界名称设置为<code>myworld</code></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>将服务器监听端口设置为<code>11375</code></li>
+</ol>
+</li>
+<li><ol start="6">
+<li>服务端 IP 地址设置为<code>0.0.0.0</code>(绑定所有地址)</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>另外还要提一嘴，服务器端口如果修改为<code>11375</code>的话，需要在你的云平台防火墙中放行这个端口，某则你连不上的。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Minecraft server properties</span></span><br><span class="line"><span class="comment">#Tue Apr 08 23:15:34 CST 2025</span></span><br><span class="line">accepts-transfers=<span class="literal">false</span></span><br><span class="line">allow-flight=<span class="literal">false</span></span><br><span class="line">allow-nether=<span class="literal">true</span></span><br><span class="line">broadcast-console-to-ops=<span class="literal">true</span></span><br><span class="line">broadcast-rcon-to-ops=<span class="literal">true</span></span><br><span class="line">bug-report-link=</span><br><span class="line">difficulty=hard</span><br><span class="line">enable-command-block=<span class="literal">true</span></span><br><span class="line">enable-jmx-monitoring=<span class="literal">false</span></span><br><span class="line">enable-query=<span class="literal">false</span></span><br><span class="line">enable-rcon=<span class="literal">false</span></span><br><span class="line">enable-status=<span class="literal">true</span></span><br><span class="line">enforce-secure-profile=<span class="literal">false</span></span><br><span class="line">enforce-whitelist=<span class="literal">false</span></span><br><span class="line">entity-broadcast-range-percentage=100</span><br><span class="line">force-gamemode=<span class="literal">false</span></span><br><span class="line">function-permission-level=2</span><br><span class="line">gamemode=survival</span><br><span class="line">generate-structures=<span class="literal">true</span></span><br><span class="line">generator-settings=&#123;&#125;</span><br><span class="line">hardcore=<span class="literal">false</span></span><br><span class="line">hide-online-players=<span class="literal">false</span></span><br><span class="line">initial-disabled-packs=</span><br><span class="line">initial-enabled-packs=vanilla</span><br><span class="line">level-name=myworld</span><br><span class="line">level-seed=</span><br><span class="line">level-type=minecraft\:normal</span><br><span class="line">log-ips=<span class="literal">true</span></span><br><span class="line">max-chained-neighbor-updates=1000000</span><br><span class="line">max-players=20</span><br><span class="line">max-tick-time=60000</span><br><span class="line">max-world-size=29999984</span><br><span class="line">motd=A Minecraft Server</span><br><span class="line">network-compression-threshold=256</span><br><span class="line">online-mode=<span class="literal">false</span></span><br><span class="line">op-permission-level=4</span><br><span class="line">pause-when-empty-seconds=0</span><br><span class="line">player-idle-timeout=0</span><br><span class="line">prevent-proxy-connections=<span class="literal">false</span></span><br><span class="line">pvp=<span class="literal">true</span></span><br><span class="line">query.port=25565</span><br><span class="line">rate-limit=0</span><br><span class="line">rcon.password=</span><br><span class="line">rcon.port=25575</span><br><span class="line">region-file-compression=deflate</span><br><span class="line">require-resource-pack=<span class="literal">false</span></span><br><span class="line">resource-pack=</span><br><span class="line">resource-pack-id=</span><br><span class="line">resource-pack-prompt=</span><br><span class="line">resource-pack-sha1=</span><br><span class="line">server-ip=0.0.0.0</span><br><span class="line">server-port=11375</span><br><span class="line">simulation-distance=10</span><br><span class="line">spawn-monsters=<span class="literal">true</span></span><br><span class="line">spawn-protection=16</span><br><span class="line">sync-chunk-writes=<span class="literal">true</span></span><br><span class="line">text-filtering-config=</span><br><span class="line">text-filtering-version=0</span><br><span class="line">use-native-transport=<span class="literal">true</span></span><br><span class="line">view-distance=10</span><br><span class="line">white-list=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="最后一步"><a href="#最后一步" class="headerlink" title="最后一步"></a>最后一步</h2><p>配置文件也修改好了，那么直接将服务端托管在后台运行即可。</p>
+<p>通过命令<code>nohup</code>和<code>&amp;</code>符可以将他放置到后台运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> java -Xmx1024M -Xms1024M -jar ./server.jar nogui &amp;</span><br></pre></td></tr></table></figure>
+
+<p>接着你尝试打开游戏，点击多人游戏，然后添加一个服务器，输入你的 IP+端口。</p>
+<blockquote>
+<p>比如我这里 IP 是：118.12.8.133，端口是: 11375，那么我就输入<code>118.12.8.133:11375</code>即可。</p>
+<p>如果有域名的话，直接使用域名也行</p>
+</blockquote>
+<p>到这一步也就结束了，可以开玩了。</p>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                搭建MC服务器
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/07/24/2025-07-24-01/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Reverse</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-07-24 17:50</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Minecraft/">Minecraft</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/07/24/2025-07-24-02/"
+                                   title="MC指令大全"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">MC指令大全</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/19/2025-07-19-05/"
+                                   title="记录下Vue中的try及Promise异常处理"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">记录下Vue中的try及Promise异常处理</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">3.</span> <span class="nav-text">下载服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">4.</span> <span class="nav-text">尝试运行服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">配置文件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">最后一步</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;2026
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Reverse</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=" no-pointer"
+                           target="_blank"
+                           href=""
+                        >
+                            赣ICP备2025068132号-2
+                        </a>
+                    </div>
+                
+            
+        </div>
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">3.</span> <span class="nav-text">下载服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">4.</span> <span class="nav-text">尝试运行服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">配置文件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">最后一步</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

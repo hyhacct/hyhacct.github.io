@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Reverse">
+    
+    <title>
+        
+            Docker守护进程连接错误 |
+        
+        Reverse
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Reverse","author":"Reverse","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","links":"/links","about":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"All To Be Nice","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/hyhacct","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":"hyhacct@outlook.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2026,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"赣ICP备2025068132号-2","link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Reverse
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Docker守护进程连接错误
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Reverse</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-07-19 14:34:01</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Feb 17 2026 08:59:42 GMT+0000">2026-02-17 08:59:42</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Docker/">Docker</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Docker/">Docker</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.5k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>14 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在使用 docker 时，发现 docker 守护进程出现连接错误，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker restart -t1 tools-nginx-1</span><br><span class="line">Error response from daemon: Cannot restart container tools-nginx-1: connection error: desc = <span class="string">&quot;transport: Error while dialing: dial unix /run/containerd/containerd.sock: connect: connection refused&quot;</span>: unavailable</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+
+<h2 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h2><p>先检查了一下<code>containerd</code>的状态，看了下是异常了，目前退出代码为<code>2</code>(<strong>status&#x3D;2</strong>)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl status containerd</span><br><span class="line">● containerd.service - containerd container runtime</span><br><span class="line">   Loaded: loaded (/usr/local/lib/systemd/system/containerd.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: activating (auto-restart) (Result: exit-code) since Sun 2024-12-22 18:36:42 CST; 3s ago</span><br><span class="line">     Docs: https://containerd.io</span><br><span class="line">  Process: 48729 ExecStart=/usr/local/bin/containerd (code=exited, status=2)</span><br><span class="line">  Process: 48727 ExecStartPre=/sbin/modprobe overlay (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 48729 (code=exited, status=2)</span><br><span class="line"></span><br><span class="line">Dec 22 18:36:42 localhost systemd[1]: containerd.service: main process exited, code=exited, status=2/INVALIDARGUMENT</span><br><span class="line">Dec 22 18:36:42 localhost systemd[1]: Unit containerd.service entered failed state.</span><br><span class="line">Dec 22 18:36:42 localhost systemd[1]: containerd.service failed.</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+
+<p>尝试重启一下<code>containerd</code>服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl restart containerd</span><br><span class="line">[root@localhost ~]# systemctl status containerd</span><br><span class="line">● containerd.service - containerd container runtime</span><br><span class="line">   Loaded: loaded (/usr/local/lib/systemd/system/containerd.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: activating (auto-restart) (Result: exit-code) since Sun 2024-12-22 18:37:32 CST; 1s ago</span><br><span class="line">     Docs: https://containerd.io</span><br><span class="line">  Process: 49241 ExecStart=/usr/local/bin/containerd (code=exited, status=2)</span><br><span class="line">  Process: 49239 ExecStartPre=/sbin/modprobe overlay (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 49241 (code=exited, status=2)</span><br><span class="line"></span><br><span class="line">Dec 22 18:37:32 localhost containerd[49241]: github.com/containerd/containerd/gc/scheduler.(*gcScheduler).run(0xc00078ec00, 0x5636f1cb28b0, 0xc000040038)</span><br><span class="line">Dec 22 18:37:32 localhost containerd[49241]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/g...0 +0x4bf</span><br><span class="line">Dec 22 18:37:32 localhost containerd[49241]: created by github.com/containerd/containerd/gc/scheduler.init.0.func1</span><br><span class="line">Dec 22 18:37:32 localhost containerd[49241]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/g...2 +0x445</span><br><span class="line">Dec 22 18:37:32 localhost systemd[1]: Unit containerd.service entered failed state.</span><br><span class="line">Dec 22 18:37:32 localhost systemd[1]: containerd.service failed.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+
+<p>但是并没有卵用，还是没起来，尝试下其他办法，查看错误日志，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u containerd -n 50 --no-pager</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">-- Logs begin at Sun 2024-12-22 17:12:15 CST, end at Sun 2024-12-22 18:40:57 CST. --</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.241193631+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.runtime.v1.linux\&quot;...&quot; type=io.containerd.runtime.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.241259832+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.runtime.v2.task\&quot;...&quot; type=io.containerd.runtime.v2</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.241334756+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.monitor.v1.cgroups\&quot;...&quot; type=io.containerd.monitor.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242006839+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.service.v1.tasks-service\&quot;...&quot; type=io.containerd.service.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242068886+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.internal.v1.restart\&quot;...&quot; type=io.containerd.internal.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242163233+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.containers\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242191794+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.content\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242212102+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.diff\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242231735+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.events\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242253326+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.healthcheck\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242273932+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.images\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242296738+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.leases\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242321583+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.namespaces\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242340220+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.internal.v1.opt\&quot;...&quot; type=io.containerd.internal.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242390209+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.snapshots\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242431370+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.tasks\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242456434+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.version\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242489898+08:00&quot; level=info msg=&quot;loading plugin \&quot;io.containerd.grpc.v1.introspection\&quot;...&quot; type=io.containerd.grpc.v1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242827737+08:00&quot; level=info msg=serving... address=/run/containerd/containerd.sock.ttrpc</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.242932534+08:00&quot; level=info msg=serving... address=/run/containerd/containerd.sock</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: time=&quot;2024-12-22T18:40:57.243027297+08:00&quot; level=info msg=&quot;containerd successfully booted in 0.043640s&quot;</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: panic: invalid page type: 2: 10 // [!code highlight]</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: goroutine 114 [running]:</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: go.etcd.io/bbolt.(*Cursor).search(0xc00026b080, 0x561b6f733918, 0x6, 0x6, 0x2)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/vendor/go.etcd.io/bbolt/cursor.go:250 +0x345</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: go.etcd.io/bbolt.(*Cursor).seek(0xc00026b080, 0x561b6f733918, 0x6, 0x6, 0xc00033c200, 0x4, 0x4, 0x7fd8a035d034, 0x10, 0x10, ...)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/vendor/go.etcd.io/bbolt/cursor.go:159 +0x7f</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: go.etcd.io/bbolt.(*Bucket).Bucket(0xc00033c200, 0x561b6f733918, 0x6, 0x6, 0xc00033c200)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/vendor/go.etcd.io/bbolt/bucket.go:105 +0xda</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: github.com/containerd/containerd/metadata.scanRoots.func2(0x7fd8a035d030, 0x4, 0x4, 0x0, 0x0, 0x0, 0x0, 0x561b6d685131)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/metadata/gc.go:101 +0xf1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: go.etcd.io/bbolt.(*Bucket).ForEach(0xc00033c180, 0xc00026b6e8, 0x6, 0x6)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/vendor/go.etcd.io/bbolt/bucket.go:390 +0x104</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: github.com/containerd/containerd/metadata.scanRoots(0x561b6edc8878, 0xc00033c000, 0xc00043c000, 0xc00013c840, 0xc0005ac000, 0x0)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/metadata/gc.go:94 +0x875</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: github.com/containerd/containerd/metadata.(*DB).getMarked.func1(0xc00043c000, 0x0, 0x0)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/metadata/db.go:384 +0x16e</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: go.etcd.io/bbolt.(*DB).View(0xc00020e400, 0xc0001d2890, 0x0, 0x0)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/vendor/go.etcd.io/bbolt/db.go:725 +0x93</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: github.com/containerd/containerd/metadata.(*DB).getMarked(0xc0003170a0, 0x561b6edc88b0, 0xc000040038, 0x203000, 0x203000, 0x0)</span><br><span class="line">Dec 22 18:40:57 localhost systemd[1]: containerd.service: main process exited, code=exited, status=2/INVALIDARGUMENT</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/metadata/db.go:367 +0x7e</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: github.com/containerd/containerd/metadata.(*DB).GarbageCollect(0xc0003170a0, 0x561b6edc88b0, 0xc000040038, 0x0, 0x3, 0x1, 0x2)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/metadata/db.go:284 +0xa5</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: github.com/containerd/containerd/gc/scheduler.(*gcScheduler).run(0xc000131020, 0x561b6edc88b0, 0xc000040038)</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/gc/scheduler/scheduler.go:310 +0x4bf</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: created by github.com/containerd/containerd/gc/scheduler.init.0.func1</span><br><span class="line">Dec 22 18:40:57 localhost containerd[50977]: /home/runner/work/containerd-nightlies/containerd-nightlies/src/github.com/containerd/containerd/gc/scheduler/scheduler.go:132 +0x445</span><br><span class="line">Dec 22 18:40:57 localhost systemd[1]: Unit containerd.service entered failed state.</span><br><span class="line">Dec 22 18:40:57 localhost systemd[1]: containerd.service failed.</span><br><span class="line">You have mail in /var/spool/mail/root</span><br></pre></td></tr></table></figure>
+
+<h2 id="确定故障原因"><a href="#确定故障原因" class="headerlink" title="确定故障原因"></a>确定故障原因</h2><p>上面看到有一个错误，<code>panic: invalid page type: 2: 10</code>应该是由于数据库文件损坏导致的。</p>
+<p>那么可以尝试一下删除数据库文件并且重建后再启动<code>containerd</code>试试。</p>
+<p>:::danger<br>请注意，删除之前建议先做个备份<br>:::</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /var/lib/containerd /var/lib/containerd.bak</span><br></pre></td></tr></table></figure>
+
+<p>然后直接删除数据库文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf /var/lib/containerd/*</span><br></pre></td></tr></table></figure>
+
+<p>然后我们重启下<code>containerd</code>服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart containerd</span><br></pre></td></tr></table></figure>
+
+<p>重启完成后，再查看一下<code>containerd</code>服务状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl status containerd</span><br><span class="line">● containerd.service - containerd container runtime</span><br><span class="line">   Loaded: loaded (/usr/local/lib/systemd/system/containerd.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Sun 2024-12-22 18:47:08 CST; 4s ago</span><br><span class="line">     Docs: https://containerd.io</span><br><span class="line">  Process: 54168 ExecStartPre=/sbin/modprobe overlay (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 54172 (containerd)</span><br><span class="line">    Tasks: 22</span><br><span class="line">   Memory: 25.0M</span><br><span class="line">   CGroup: /system.slice/containerd.service</span><br><span class="line">           └─54172 /usr/local/bin/containerd</span><br><span class="line"></span><br><span class="line">Dec 22 18:47:08 localhost containerd[54172]: <span class="keyword">time</span>=<span class="string">&quot;2024-12-22T18:47:08.314169308+08:00&quot;</span> level=info msg=<span class="string">&quot;loading plugin \&quot;io.containerd.grpc.v1.....grpc.v1</span></span><br><span class="line"><span class="string">Dec 22 18:47:08 localhost containerd[54172]: time=&quot;</span>2024-12-22T18:47:08.314183237+08:00<span class="string">&quot; level=info msg=&quot;</span>loading plugin \&quot;io.containerd.grpc.v1.....grpc.v1</span><br><span class="line">Dec 22 18:47:08 localhost containerd[54172]: <span class="keyword">time</span>=<span class="string">&quot;2024-12-22T18:47:08.314197462+08:00&quot;</span> level=info msg=<span class="string">&quot;loading plugin \&quot;io.containerd.internal...ernal.v1</span></span><br><span class="line"><span class="string">Dec 22 18:47:08 localhost containerd[54172]: time=&quot;</span>2024-12-22T18:47:08.314239313+08:00<span class="string">&quot; level=info msg=&quot;</span>loading plugin \&quot;io.containerd.grpc.v1.....grpc.v1</span><br><span class="line">Dec 22 18:47:08 localhost containerd[54172]: <span class="keyword">time</span>=<span class="string">&quot;2024-12-22T18:47:08.314260981+08:00&quot;</span> level=info msg=<span class="string">&quot;loading plugin \&quot;io.containerd.grpc.v1.....grpc.v1</span></span><br><span class="line"><span class="string">Dec 22 18:47:08 localhost containerd[54172]: time=&quot;</span>2024-12-22T18:47:08.314276778+08:00<span class="string">&quot; level=info msg=&quot;</span>loading plugin \&quot;io.containerd.grpc.v1.....grpc.v1</span><br><span class="line">Dec 22 18:47:08 localhost containerd[54172]: <span class="keyword">time</span>=<span class="string">&quot;2024-12-22T18:47:08.314292198+08:00&quot;</span> level=info msg=<span class="string">&quot;loading plugin \&quot;io.containerd.grpc.v1.....grpc.v1</span></span><br><span class="line"><span class="string">Dec 22 18:47:08 localhost containerd[54172]: time=&quot;</span>2024-12-22T18:47:08.314520493+08:00<span class="string">&quot; level=info msg=serving... address=/run/containerd/conta...ck.ttrpc</span></span><br><span class="line"><span class="string">Dec 22 18:47:08 localhost containerd[54172]: time=&quot;</span>2024-12-22T18:47:08.314560935+08:00<span class="string">&quot; level=info msg=serving... address=/run/containerd/containerd.sock</span></span><br><span class="line"><span class="string">Dec 22 18:47:08 localhost containerd[54172]: time=&quot;</span>2024-12-22T18:47:08.314621503+08:00<span class="string">&quot; level=info msg=&quot;</span>containerd successfully booted <span class="keyword">in</span> 0.039119s<span class="string">&quot;</span></span><br><span class="line"><span class="string">Hint: Some lines were ellipsized, use -l to show in full.</span></span><br><span class="line"><span class="string">[root@localhost ~]#</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到<code>containerd</code>服务已经正常启动了。</p>
+<h2 id="验证解决方案"><a href="#验证解决方案" class="headerlink" title="验证解决方案"></a>验证解决方案</h2><p>我们再试试重启容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker restart -t1 tools-nginx-1</span><br><span class="line">tools-nginx-1</span><br><span class="line">[root@localhost ~]# docker ps -a</span><br><span class="line">CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                                    PORTS     NAMES</span><br><span class="line">0b68949ab785   xxxxxxxxxxxxxx   <span class="string">&quot;tini -- sh -c &#x27;bash…&quot;</span>   11 minutes ago   Up 8 seconds                                        tools-nginx-1</span><br><span class="line">[root@localhost ~]# docker ps -a</span><br></pre></td></tr></table></figure>
+
+<p>可以看到容器已经重启成功，那么至此 <code>containerd</code> 服务异常的问题就解决了，得出结论，数据库文件损坏导致的<code>containerd</code>服务异常，可以尝试删除数据库文件，重建后再启动<code>containerd</code>服务。</p>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Docker守护进程连接错误
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/07/19/2025-07-19-02/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Reverse</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-07-19 14:34</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Docker/">Docker</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/07/19/2025-07-19-03/"
+                                   title="关联数组的声明和使用"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">关联数组的声明和使用</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/19/2025-07-19-01/"
+                                   title="Categref心跳报错"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Categref心跳报错</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">尝试解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%95%85%E9%9A%9C%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">确定故障原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">验证解决方案</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;2026
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Reverse</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=" no-pointer"
+                           target="_blank"
+                           href=""
+                        >
+                            赣ICP备2025068132号-2
+                        </a>
+                    </div>
+                
+            
+        </div>
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">尝试解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E6%95%85%E9%9A%9C%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">确定故障原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">验证解决方案</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

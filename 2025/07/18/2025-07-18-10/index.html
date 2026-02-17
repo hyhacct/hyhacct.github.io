@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Reverse">
+    
+    <title>
+        
+            Vue脚手架模板 |
+        
+        Reverse
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Reverse","author":"Reverse","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","links":"/links","about":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"All To Be Nice","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/hyhacct","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":"hyhacct@outlook.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2026,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"赣ICP备2025068132号-2","link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Reverse
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Vue脚手架模板
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Reverse</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-07-18 14:40:25</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Feb 17 2026 08:59:42 GMT+0000">2026-02-17 08:59:42</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Vue-js/">Vue.js</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Vue-js/">Vue.js</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>922 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>5 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <p>:::tip 有啥用?<br>浅浅记录一下在使用 Vue 的轮子时,各个支持库的模板,方便在新起项目时可以快速 CV 上去 :)<br>:::</p>
+<h2 id="Router-Template"><a href="#Router-Template" class="headerlink" title="Router Template"></a>Router Template</h2><blockquote>
+<p>这是路由组件的 ts 代码模板,可以直接 CV 到<code>/src/router/index.ts</code>使用,删除一些自己不需要的东西就行.</p>
+</blockquote>
+<p>:::details 点我查看代码</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHashHistory, <span class="title class_">RouteRecordRaw</span> &#125; <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useUserStore &#125; <span class="keyword">from</span> <span class="string">&quot;@/stores/user&quot;</span>; <span class="comment">// 若使用 Pinia</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ElMessage</span> &#125; <span class="keyword">from</span> <span class="string">&quot;element-plus&quot;</span>; <span class="comment">// 可换成任意 UI 库</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">NProgress</span> <span class="keyword">from</span> <span class="string">&quot;nprogress&quot;</span>; <span class="comment">// 替代 loadingBar</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 页面组件引入</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ViewLogin</span> <span class="keyword">from</span> <span class="string">&quot;@/views/Login.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ViewHome</span> <span class="keyword">from</span> <span class="string">&quot;@/views/Home.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">View404</span> <span class="keyword">from</span> <span class="string">&quot;@/views/404.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由配置</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">routes</span>: <span class="title class_">RouteRecordRaw</span>[] = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line">    <span class="attr">redirect</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/login&quot;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;Login&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">ViewLogin</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">public</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;Home&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">ViewHome</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">requiresAuth</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/:pathMatch(.*)*&quot;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;NotFound&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">View404</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">public</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createWebHashHistory</span>(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由守卫</span></span><br><span class="line">router.<span class="title function_">beforeEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="title class_">NProgress</span>.<span class="title function_">start</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> userStore = <span class="title function_">useUserStore</span>();</span><br><span class="line">  <span class="keyword">const</span> isAuthenticated = !!userStore.<span class="property">token</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (to.<span class="property">meta</span>.<span class="property">requiresAuth</span> &amp;&amp; !isAuthenticated) &#123;</span><br><span class="line">    <span class="title class_">ElMessage</span>.<span class="title function_">warning</span>(<span class="string">&quot;请先登录&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">next</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;Login&quot;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (to.<span class="property">path</span> === <span class="string">&quot;/login&quot;</span> &amp;&amp; isAuthenticated) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">next</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;Home&quot;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">router.<span class="title function_">afterEach</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title class_">NProgress</span>.<span class="title function_">done</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router;</span><br></pre></td></tr></table></figure>
+
+<p>:::</p>
+<h2 id="Pinia-TypeScript-Template"><a href="#Pinia-TypeScript-Template" class="headerlink" title="Pinia [TypeScript] Template"></a>Pinia [TypeScript] Template</h2><blockquote>
+<p>这是 pinia 状态管理插件的 TS 模板,一般是放在<code>/src/stores/xxxx.ts</code>的</p>
+</blockquote>
+<p>:::details 点我查看代码</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">UserInfo</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">email</span>?: <span class="built_in">string</span>;</span><br><span class="line">  [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useUserStore = <span class="title function_">defineStore</span>(<span class="string">&quot;user&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: (): &#123;</span><br><span class="line">    <span class="attr">token</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">userInfo</span>: <span class="title class_">UserInfo</span> | <span class="literal">null</span>;</span><br><span class="line">  &#125; =&gt; (&#123;</span><br><span class="line">    <span class="attr">token</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="attr">userInfo</span>: <span class="literal">null</span>,</span><br><span class="line">  &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="attr">isLogin</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> !!state.<span class="property">token</span>,</span><br><span class="line">    <span class="attr">username</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">userInfo</span>?.<span class="property">name</span> || <span class="string">&quot;&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">setToken</span>(<span class="params"><span class="attr">token</span>: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">token</span> = token;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">setUserInfo</span>(<span class="params"><span class="attr">info</span>: <span class="title class_">UserInfo</span></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">userInfo</span> = info;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">logout</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">token</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">userInfo</span> = <span class="literal">null</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 持久化（可选，需要配合 pinia-plugin-persistedstate 插件）</span></span><br><span class="line">  <span class="attr">persist</span>: &#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&quot;user-store&quot;</span>,</span><br><span class="line">    <span class="attr">paths</span>: [<span class="string">&quot;token&quot;</span>, <span class="string">&quot;userInfo&quot;</span>],</span><br><span class="line">    <span class="attr">storage</span>: <span class="variable language_">sessionStorage</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>:::</p>
+<h2 id="Pinia-JavaScript-Template"><a href="#Pinia-JavaScript-Template" class="headerlink" title="Pinia [JavaScript] Template"></a>Pinia [JavaScript] Template</h2><blockquote>
+<p>这是 pinia 状态管理插件的 JS 模板,一般是放在<code>/src/stores/xxxx.js</code>的</p>
+</blockquote>
+<p>:::details 点我查看代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineStore &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useUserStore = <span class="title function_">defineStore</span>(<span class="string">&quot;user&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">state</span>: <span class="function">() =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">token</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="attr">userInfo</span>: <span class="literal">null</span>,</span><br><span class="line">  &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="attr">isLogin</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> !!state.<span class="property">token</span>,</span><br><span class="line">    <span class="attr">username</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">userInfo</span>?.<span class="property">name</span> || <span class="string">&quot;&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="title function_">setToken</span>(<span class="params">token</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">token</span> = token;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">setUserInfo</span>(<span class="params">info</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">userInfo</span> = info;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">logout</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">token</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">userInfo</span> = <span class="literal">null</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 开启持久化（需要 pinia-plugin-persistedstate 插件）</span></span><br><span class="line">  <span class="attr">persist</span>: &#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&quot;user-store&quot;</span>,</span><br><span class="line">    <span class="attr">paths</span>: [<span class="string">&quot;token&quot;</span>, <span class="string">&quot;userInfo&quot;</span>],</span><br><span class="line">    <span class="attr">storage</span>: <span class="variable language_">sessionStorage</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>:::</p>
+<h2 id="axios-二次封装"><a href="#axios-二次封装" class="headerlink" title="axios 二次封装"></a>axios 二次封装</h2><blockquote>
+<p>可以直接写到<code>/src/api/request.ts</code></p>
+</blockquote>
+<p>:::details 点我查看代码</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios, &#123; <span class="title class_">AxiosInstance</span>, <span class="title class_">AxiosRequestConfig</span>, <span class="title class_">AxiosResponse</span> &#125; <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ElMessage</span> &#125; <span class="keyword">from</span> <span class="string">&quot;element-plus&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useUserStore &#125; <span class="keyword">from</span> <span class="string">&quot;@/stores/user&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">BASE_URL</span> = <span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">env</span>.<span class="property">VITE_API_BASE_URL</span> || <span class="string">&quot;/api&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">service</span>: <span class="title class_">AxiosInstance</span> = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="variable constant_">BASE_URL</span>,</span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">10000</span>,</span><br><span class="line">  <span class="attr">headers</span>: &#123;</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">service.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params"><span class="attr">config</span>: <span class="title class_">AxiosRequestConfig</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> userStore = <span class="title function_">useUserStore</span>();</span><br><span class="line">    <span class="keyword">const</span> token = userStore.<span class="property">token</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (token) &#123;</span><br><span class="line">      config.<span class="property">headers</span> = &#123;</span><br><span class="line">        ...config.<span class="property">headers</span>,</span><br><span class="line">        <span class="title class_">Authorization</span>: <span class="string">`Bearer <span class="subst">$&#123;token&#125;</span>`</span>,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">service.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params"><span class="attr">response</span>: <span class="title class_">AxiosResponse</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; data &#125; = response;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据业务约定处理</span></span><br><span class="line">    <span class="keyword">if</span> (data.<span class="property">code</span> !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="title class_">ElMessage</span>.<span class="title function_">error</span>(data.<span class="property">message</span> || <span class="string">&quot;请求失败&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">data</span>; <span class="comment">// 默认返回 data 下的 data</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> status = error?.<span class="property">response</span>?.<span class="property">status</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (status === <span class="number">401</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> userStore = <span class="title function_">useUserStore</span>();</span><br><span class="line">      userStore.<span class="title function_">logout</span>();</span><br><span class="line">      <span class="title class_">ElMessage</span>.<span class="title function_">error</span>(<span class="string">&quot;登录已过期，请重新登录&quot;</span>);</span><br><span class="line">      <span class="comment">// 可跳转登录页</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (status === <span class="number">500</span>) &#123;</span><br><span class="line">      <span class="title class_">ElMessage</span>.<span class="title function_">error</span>(<span class="string">&quot;服务器错误&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title class_">ElMessage</span>.<span class="title function_">error</span>(error?.<span class="property">response</span>?.<span class="property">data</span>?.<span class="property">message</span> || <span class="string">&quot;请求异常&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> service;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>怎么使用? 参考下面的代码</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&quot;@/api/request&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">LoginParams</span> &#123;</span><br><span class="line">  <span class="attr">username</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">password</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">LoginResponse</span> &#123;</span><br><span class="line">  <span class="attr">token</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">userInfo</span>: &#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params"><span class="attr">data</span>: <span class="title class_">LoginParams</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> request.<span class="property">post</span>&lt;<span class="title class_">LoginResponse</span>&gt;(<span class="string">&quot;/auth/login&quot;</span>, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>:::</p>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Vue脚手架模板
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/07/18/2025-07-18-10/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Reverse</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-07-18 14:40</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Vue-js/">Vue.js</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/07/18/2025-07-18-11/"
+                                   title="强制更新Gorm零值"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">强制更新Gorm零值</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/18/2025-07-18-08/"
+                                   title="在Linux下创建Supervisord服务单元"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">在Linux下创建Supervisord服务单元</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Router-Template"><span class="nav-number">1.</span> <span class="nav-text">Router Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-TypeScript-Template"><span class="nav-number">2.</span> <span class="nav-text">Pinia [TypeScript] Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-JavaScript-Template"><span class="nav-number">3.</span> <span class="nav-text">Pinia [JavaScript] Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#axios-%E4%BA%8C%E6%AC%A1%E5%B0%81%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">axios 二次封装</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;2026
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Reverse</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=" no-pointer"
+                           target="_blank"
+                           href=""
+                        >
+                            赣ICP备2025068132号-2
+                        </a>
+                    </div>
+                
+            
+        </div>
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Router-Template"><span class="nav-number">1.</span> <span class="nav-text">Router Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-TypeScript-Template"><span class="nav-number">2.</span> <span class="nav-text">Pinia [TypeScript] Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pinia-JavaScript-Template"><span class="nav-number">3.</span> <span class="nav-text">Pinia [JavaScript] Template</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#axios-%E4%BA%8C%E6%AC%A1%E5%B0%81%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">axios 二次封装</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

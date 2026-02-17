@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Reverse">
+    
+    <title>
+        
+            Vue表单规则 |
+        
+        Reverse
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"Reverse","author":"Reverse","avatar":"/images/avatar.svg","logo":"/images/logo.svg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","links":"/links","about":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"All To Be Nice","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/hyhacct","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":"hyhacct@outlook.com"}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"announcement":null,"category":false,"tag":false,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.39"},"waline":{"server_url":null,"reaction":false,"version":"3.3.2"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2026,"word_count":false,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":true,"list":[{"code":"赣ICP备2025068132号-2","link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.5"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/logo.svg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               Reverse
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/links">
+                                
+                                友链
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/links">
+                            
+                            友链
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Vue表单规则
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/avatar.svg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">Reverse</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2025-07-19 14:47:17</span>
+            </span>
+
+            
+                <span class="meta-info-item post-update-date">
+                    <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                    <span class="datetime" data-updated="Tue Feb 17 2026 08:59:42 GMT+0000">2026-02-17 08:59:42</span>
+                </span>
+            
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Vue-js/">Vue.js</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Vue-js/">Vue.js</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.7k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <p>rules 规则是 Vue.js 中非常重要的属性，它可以对表单的输入进行校验，并给出提示信息, 这里浅浅的记录一下有关 rules 规则的常用用法。</p>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>rules 规则是一个数组，数组的每一项是一个对象，对象中包含两个属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th align="left">功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>message</code></td>
+<td align="left">当验证失败时显示的错误信息</td>
+</tr>
+<tr>
+<td><code>trigger</code></td>
+<td align="left">指定何时触发验证，常见的值有 blur（失去焦点时）、change（值发生变化时）</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td align="left">指定数据类型，如 string、number、email 等</td>
+</tr>
+<tr>
+<td><code>min 和 max</code></td>
+<td align="left">用于限制输入的最小和最大长度</td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td align="left">使用正则表达式进行验证</td>
+</tr>
+<tr>
+<td><code>validator</code></td>
+<td align="left">自定义验证函数，允许你编写更复杂的验证逻辑</td>
+</tr>
+<tr>
+<td><code>required</code></td>
+<td align="left">是否必填，值为 true 或 false。</td>
+</tr>
+</tbody></table>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules</span>: [</span><br><span class="line">  &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;不能为空&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">min</span>: <span class="number">6</span>, <span class="attr">max</span>: <span class="number">12</span>, <span class="attr">message</span>: <span class="string">&quot;长度必须在6到12之间&quot;</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">pattern</span>: <span class="regexp">/^[a-zA-Z]+$/</span>, <span class="attr">message</span>: <span class="string">&quot;只能输入字母&quot;</span> &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>上述例子中，第一个规则表示必填，第二个规则表示长度必须在 6 到 12 之间，第三个规则表示只能输入字母。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;n-form ref=&quot;formRef&quot; label-placement=&quot;left&quot; :label-width=&quot;80&quot; :model=&quot;formValue&quot; :rules=&quot;rules&quot;&gt;</span><br><span class="line">    &lt;n-form-item label=&quot;节点名称&quot; path=&quot;name&quot;&gt;</span><br><span class="line">      &lt;n-input v-model:value=&quot;formValue.name&quot; placeholder=&quot;请输入节点名称&quot; /&gt;</span><br><span class="line">    &lt;/n-form-item&gt;</span><br><span class="line">    &lt;n-form-item label=&quot;节点类型&quot; path=&quot;type&quot;&gt;</span><br><span class="line">      &lt;n-select v-model:value=&quot;formValue.type&quot; :options=&quot;OptionsType&quot; placeholder=&quot;请选择&quot; /&gt;</span><br><span class="line">    &lt;/n-form-item&gt;</span><br><span class="line">    &lt;n-form-item label=&quot;运营商&quot; path=&quot;operator&quot;&gt;</span><br><span class="line">      &lt;n-select v-model:value=&quot;formValue.operator&quot; :options=&quot;OptionsOperator&quot; placeholder=&quot;请选择&quot; /&gt;</span><br><span class="line">    &lt;/n-form-item&gt;</span><br><span class="line">    &lt;n-form-item label=&quot;调度类型&quot; path=&quot;dispatch&quot;&gt;</span><br><span class="line">      &lt;n-select v-model:value=&quot;formValue.dispatch&quot; :options=&quot;OptionsDispatch&quot; placeholder=&quot;请选择&quot; /&gt;</span><br><span class="line">    &lt;/n-form-item&gt;</span><br><span class="line">  &lt;/n-form&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref &#125; from &quot;vue&quot;;</span><br><span class="line"></span><br><span class="line">const showModal = true;</span><br><span class="line"></span><br><span class="line">const formValue = ref(&#123;</span><br><span class="line">  name: &quot;&quot;,</span><br><span class="line">  type: null,</span><br><span class="line">  operator: null,</span><br><span class="line">  dispatch: null,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const rules = &#123;</span><br><span class="line">  name: [</span><br><span class="line">    &#123; required: true, message: &quot;请输入节点名称&quot;, trigger: &quot;blur&quot; &#125;,</span><br><span class="line">    &#123; min: 2, max: 20, message: &quot;长度在 2 到 20 个字符&quot;, trigger: &quot;blur&quot; &#125;,</span><br><span class="line">  ],</span><br><span class="line">  type: [&#123; required: true, message: &quot;请选择节点类型&quot;, trigger: &quot;change&quot; &#125;],</span><br><span class="line">  operator: [&#123; required: true, message: &quot;请选择运营商&quot;, trigger: &quot;change&quot; &#125;],</span><br><span class="line">  dispatch: &#123; required: true, message: &quot;请选择调度类型&quot;, trigger: [&quot;blur&quot;, &quot;change&quot;, &quot;input&quot;], type: &quot;array&quot; &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="trigger-触发介绍"><a href="#trigger-触发介绍" class="headerlink" title="trigger 触发介绍"></a>trigger 触发介绍</h2><blockquote>
+<p>在表单验证中，blur、change 和 input 是常见的事件，用于触发验证逻辑。下面分别介绍这三个事件的含义和用途，以及一些其他可能用到的事件。</p>
+</blockquote>
+<p><code>input</code> 事件</p>
+<ul>
+<li>含义：每当输入框的内容发生变化时，立即触发验证。</li>
+<li>用途：适用于需要实时反馈的场景，例如用户在输入过程中，希望立即看到输入内容是否符合要求。这可以提供即时的用户体验，帮助用户及时纠正错误。</li>
+<li>示例：用户在输入邮箱地址时，每次键入一个字符，都会触发验证，检查邮箱格式是否正确。</li>
+</ul>
+<p><code>blur</code> 事件</p>
+<ul>
+<li>含义：当输入框失去焦点时触发验证。</li>
+<li>用途：适用于用户完成输入并离开输入框后进行验证。这可以减少不必要的验证调用，提高性能，同时在用户完成输入后提供验证结果。</li>
+<li>示例：用户在输入姓名后，点击其他地方或切换到其他输入框，此时触发验证，检查姓名是否为空。</li>
+</ul>
+<p><code>change</code> 事件</p>
+<ul>
+<li>含义：当输入框的内容发生变化并且输入框失去焦点时触发验证。</li>
+<li>用途：适用于需要在用户完成输入并离开输入框后进行验证的场景，但与 blur 事件不同的是，change 事件只有在内容实际发生变化后才会触发。</li>
+<li>示例：用户在输入密码后，点击其他地方或切换到其他输入框，如果密码内容发生了变化，才会触发验证，检查密码是否符合要求。</li>
+</ul>
+<p><code>focus</code> 事件</p>
+<ul>
+<li>含义：当输入框获得焦点时触发。</li>
+<li>用途：可以用于初始化一些状态或显示提示信息。</li>
+<li>示例：用户点击输入框时，显示一个提示信息，提示用户输入的内容要求。</li>
+</ul>
+<p><code>keyup</code> 事件</p>
+<ul>
+<li>含义：当用户松开键盘上的键时触发。</li>
+<li>用途：可以用于需要在用户完成键入操作后立即进行验证的场景。</li>
+<li>示例：用户在输入搜索关键词时，每次松开键时触发搜索建议的显示。</li>
+</ul>
+<p><code>keydown</code> 事件</p>
+<ul>
+<li>含义：当用户按下键盘上的键时触发。</li>
+<li>用途：可以用于需要在用户开始键入时进行一些操作的场景，例如限制输入内容。</li>
+<li>示例：用户在输入数字输入框时，按下非数字键时阻止输入。</li>
+</ul>
+<p><code>keypress</code> 事件</p>
+<ul>
+<li>含义：当用户按下键盘上的键并产生字符值时触发。</li>
+<li>用途：可以用于需要在用户输入字符时进行一些操作的场景，但现代开发中通常推荐使用 input 事件。</li>
+<li>示例：用户在输入文本时，每次输入字符时进行一些处理，例如自动格式化输入内容。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><table>
+<thead>
+<tr>
+<th>事件</th>
+<th align="left">总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>input</code></td>
+<td align="left">实时反馈，每次内容变化时触发。</td>
+</tr>
+<tr>
+<td><code>blur</code></td>
+<td align="left">用户完成输入并离开输入框时触发。</td>
+</tr>
+<tr>
+<td><code>change</code></td>
+<td align="left">用户完成输入并离开输入框且内容发生变化时触发。</td>
+</tr>
+<tr>
+<td><code>focus</code></td>
+<td align="left">输入框获得焦点时触发，用于初始化状态或显示提示。</td>
+</tr>
+<tr>
+<td><code>keyup</code></td>
+<td align="left">用户松开键时触发，用于需要在键入操作完成后立即进行的操作。</td>
+</tr>
+<tr>
+<td><code>keydown</code></td>
+<td align="left">用户按下键时触发，用于需要在键入操作开始时进行的操作。</td>
+</tr>
+<tr>
+<td><code>keypress</code></td>
+<td align="left">用户按下键并产生字符值时触发，现代开发中推荐使用 input 事件。</td>
+</tr>
+</tbody></table>
+<h2 id="通过按钮触发验证"><a href="#通过按钮触发验证" class="headerlink" title="通过按钮触发验证"></a>通过按钮触发验证</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;el-form ref=&quot;formRef&quot; :model=&quot;form&quot; :rules=&quot;rules&quot;&gt;</span><br><span class="line">    &lt;el-form-item label=&quot;用户名&quot; prop=&quot;username&quot;&gt;</span><br><span class="line">      &lt;el-input v-model=&quot;form.username&quot;&gt;&lt;/el-input&gt;</span><br><span class="line">    &lt;/el-form-item&gt;</span><br><span class="line">    &lt;el-form-item label=&quot;密码&quot; prop=&quot;password&quot;&gt;</span><br><span class="line">      &lt;el-input type=&quot;password&quot; v-model=&quot;form.password&quot;&gt;&lt;/el-input&gt;</span><br><span class="line">    &lt;/el-form-item&gt;</span><br><span class="line">    &lt;el-button type=&quot;primary&quot; @click=&quot;handleValidateButtonClick&quot;&gt;验证&lt;/el-button&gt;</span><br><span class="line">  &lt;/el-form&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref &#125; from &quot;vue&quot;;</span><br><span class="line">import &#123; ElMessage as message &#125; from &quot;element-plus&quot;;</span><br><span class="line"></span><br><span class="line">const formRef = ref(null);</span><br><span class="line">const form = ref(&#123;</span><br><span class="line">  username: &quot;&quot;,</span><br><span class="line">  password: &quot;&quot;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const rules = &#123;</span><br><span class="line">  username: [&#123; required: true, message: &quot;请输入用户名&quot;, trigger: &quot;blur&quot; &#125;],</span><br><span class="line">  password: [</span><br><span class="line">    &#123; required: true, message: &quot;请输入密码&quot;, trigger: &quot;blur&quot; &#125;,</span><br><span class="line">    &#123; min: 6, message: &quot;密码长度至少为6位&quot;, trigger: &quot;blur&quot; &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">const handleValidateButtonClick = (e) =&gt; &#123;</span><br><span class="line">  e.preventDefault();</span><br><span class="line">  formRef.value?.validate((errors) =&gt; &#123;</span><br><span class="line">    if (!errors) &#123;</span><br><span class="line">      message.success(&quot;验证成功&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      console.log(errors);</span><br><span class="line">      message.error(&quot;验证失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里直接通过<code>formRef.value?.validate</code>来对所有的表单项进行表单规则验证。</p>
+<h2 id="阻止默认事件"><a href="#阻止默认事件" class="headerlink" title="阻止默认事件"></a>阻止默认事件</h2><p>这里面<code>e.preventDefault();</code>的含义是阻止事件的默认行为。</p>
+<p>详细解释</p>
+<ol>
+<li>事件默认行为</li>
+</ol>
+<ul>
+<li>表单提交：当用户点击表单的提交按钮时，浏览器会默认将表单数据发送到服务器。这个默认行为可能会导致页面重新加载。</li>
+<li>链接点击：当用户点击一个链接时，浏览器会默认导航到链接指定的 URL，导致页面跳转。</li>
+<li>输入框聚焦：当用户点击一个输入框时，浏览器会默认将光标聚焦到输入框中。</li>
+</ul>
+<ol>
+<li>e.preventDefault() 的作用</li>
+</ol>
+<ul>
+<li>阻止表单提交：在表单提交事件中使用 e.preventDefault() 可以阻止表单数据发送到服务器，从而防止页面重新加载。这在使用 AJAX 或其他前端框架（如 Vue、React）进行异步表单处理时非常有用。</li>
+<li>阻止链接跳转：在链接点击事件中使用 e.preventDefault() 可以阻止浏览器导航到链接指定的 URL，从而防止页面跳转。这在使用单页应用（SPA）时非常有用，可以实现页面内导航而不重新加载页面。</li>
+<li>阻止其他默认行为：在其他事件中，e.preventDefault() 也可以用于阻止默认行为，例如阻止输入框的默认聚焦行为。</li>
+</ul>
+<h2 id="表单内置的验证规则"><a href="#表单内置的验证规则" class="headerlink" title="表单内置的验证规则"></a>表单内置的验证规则</h2><p>在表单验证中，通常有多种内置的验证规则可以使用。这些规则可以帮助你确保用户输入的数据符合特定的要求。以下是一些常见的验证规则及其用途：</p>
+<ol>
+<li><code>required</code></li>
+</ol>
+<p>用途：确保字段不为空。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;请输入节点名称&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>min 和 max</code></li>
+</ol>
+<p>用途：确保字段的长度在指定的范围内。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">min</span>: <span class="number">2</span>, <span class="attr">max</span>: <span class="number">20</span>, <span class="attr">message</span>: <span class="string">&quot;长度在 2 到 20 个字符&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>minLength 和 maxLength</code></li>
+</ol>
+<p>用途：确保字段的长度至少为 minLength，最多为 maxLength。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">minLength</span>: <span class="number">2</span>, <span class="attr">message</span>: <span class="string">&quot;长度至少为 2 个字符&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br><span class="line">&#123; <span class="attr">maxLength</span>: <span class="number">20</span>, <span class="attr">message</span>: <span class="string">&quot;长度最多为 20 个字符&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>pattern</code><br>用途：确保字段的值匹配指定的正则表达式。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">pattern</span>: <span class="regexp">/^[a-zA-Z0-9]+$/</span>, <span class="attr">message</span>: <span class="string">&quot;只能输入字母和数字&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><code>email</code></li>
+</ol>
+<p>用途：确保字段的值是一个有效的电子邮件地址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">email</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&quot;请输入有效的电子邮件地址&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><code>type</code></li>
+</ol>
+<p>用途：确保字段的值是特定的类型，如 string、number、array 等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">type</span>: <span class="string">&#x27;string&#x27;</span>, <span class="attr">message</span>: <span class="string">&quot;请输入字符串&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br><span class="line">&#123; <span class="attr">type</span>: <span class="string">&#x27;number&#x27;</span>, <span class="attr">message</span>: <span class="string">&quot;请输入数字&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><code>enum</code></li>
+</ol>
+<p>用途：确保字段的值在指定的枚举值中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">enum</span>: [<span class="string">&#x27;admin&#x27;</span>, <span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>], <span class="attr">message</span>: <span class="string">&quot;请输入有效的用户角色&quot;</span>, <span class="attr">trigger</span>: <span class="string">&quot;blur&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义表单规则"><a href="#自定义表单规则" class="headerlink" title="自定义表单规则"></a>自定义表单规则</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;form&gt;</span><br><span class="line">    &lt;input type=&quot;password&quot; v-model=&quot;form.password&quot; :rules=&quot;passwordRules&quot; /&gt;</span><br><span class="line">  &lt;/form&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      form: &#123;</span><br><span class="line">        password: &quot;&quot;,</span><br><span class="line">      &#125;,</span><br><span class="line">      passwordRules: [</span><br><span class="line">        &#123; required: true, message: &quot;请输入密码&quot;, trigger: &quot;blur&quot; &#125;,</span><br><span class="line">        &#123; validator: validatePassword, trigger: &quot;blur&quot; &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    validatePassword(rule, value, callback) &#123;</span><br><span class="line">      if (value === &quot;&quot;) &#123;</span><br><span class="line">        callback(new Error(&quot;请输入密码&quot;));</span><br><span class="line">      &#125; else if (value.length &lt; 6) &#123;</span><br><span class="line">        callback(new Error(&quot;密码至少6位&quot;));</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        callback();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Vue表单规则
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2025/07/19/2025-07-19-04/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">Reverse</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2025-07-19 14:47</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Vue-js/">Vue.js</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2025/07/19/2025-07-19-05/"
+                                   title="记录下Vue中的try及Promise异常处理"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">记录下Vue中的try及Promise异常处理</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2025/07/19/2025-07-19-03/"
+                                   title="关联数组的声明和使用"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">关联数组的声明和使用</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trigger-%E8%A7%A6%E5%8F%91%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">trigger 触发介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%8C%89%E9%92%AE%E8%A7%A6%E5%8F%91%E9%AA%8C%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">通过按钮触发验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">阻止默认事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E5%86%85%E7%BD%AE%E7%9A%84%E9%AA%8C%E8%AF%81%E8%A7%84%E5%88%99"><span class="nav-number">5.</span> <span class="nav-text">表单内置的验证规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E8%A7%84%E5%88%99"><span class="nav-number">6.</span> <span class="nav-text">自定义表单规则</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+    &copy;&nbsp;2026
+    
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">Reverse</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+        <div class="record-info info-item">
+            
+                
+                    <div class="record-item border-box">
+                        <a class=" no-pointer"
+                           target="_blank"
+                           href=""
+                        >
+                            赣ICP备2025068132号-2
+                        </a>
+                    </div>
+                
+            
+        </div>
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trigger-%E8%A7%A6%E5%8F%91%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">trigger 触发介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%8C%89%E9%92%AE%E8%A7%A6%E5%8F%91%E9%AA%8C%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">通过按钮触发验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">阻止默认事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E5%86%85%E7%BD%AE%E7%9A%84%E9%AA%8C%E8%AF%81%E8%A7%84%E5%88%99"><span class="nav-number">5.</span> <span class="nav-text">表单内置的验证规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E8%A7%84%E5%88%99"><span class="nav-number">6.</span> <span class="nav-text">自定义表单规则</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
