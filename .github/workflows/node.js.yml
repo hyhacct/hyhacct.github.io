@@ -1,8 +1,12 @@
 name: Deploy Hexo Blog
 
+# 监听 main 分支推送，有推送则触发构建，使用 main 分支源码构建
 on:
   push:
-    branches: [ "main" ] # 仅在推送到 main 分支时触发
+    branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -12,7 +16,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true # 如果你的主题是 git submodule 形式引入的，这行很重要
+          ref: main
+          submodules: false
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
