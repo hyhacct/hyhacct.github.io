@@ -4,11 +4,11 @@ tasks:
   # ========== 公共任务 ==========
 
   pre-commit:install:
-    desc: "安装 pre-commit 钩子"
+    desc: "安装 pre-commit 钩子（未安装 pre-commit 时跳过，不报错）"
     silent: true
     cmds:
       - |
-        [ -f .git/hooks/pre-commit ] && cat .git/hooks/pre-commit | grep -c pre-commit >/dev/null || (command -v pre-commit >/dev/null && pre-commit install)
+        [ -f .git/hooks/pre-commit ] && cat .git/hooks/pre-commit | grep -c pre-commit >/dev/null || (command -v pre-commit >/dev/null && pre-commit install) || true
 
   push:
     desc: "暂存、提交并推送所有更改"
