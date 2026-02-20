@@ -9,7 +9,7 @@
     
     <title>
         
-            在MacOS下安装oh-my-zsh |
+            Minecraft 常用指令汇总 |
         
         Reverse
     </title>
@@ -238,7 +238,7 @@
             <div class="post-content-bottom border-box">
                 
                     <div class="post-title">
-                        在MacOS下安装oh-my-zsh
+                        Minecraft 常用指令汇总
                     </div>
                 
 
@@ -266,7 +266,7 @@
         
             <span class="meta-info-item post-create-date">
                 <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
-                <span class="datetime">2025-02-23 15:02:30</span>
+                <span class="datetime">2026-02-20 16:25:59</span>
             </span>
 
             
@@ -281,7 +281,7 @@
             <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
                 <ul class="post-category-ul">
                     
-                            <li class="category-item"><a href="/categories/MacOS/">MacOS</a></li>
+                            <li class="category-item"><a href="/categories/Minecraft/">Minecraft</a></li>
                         
                     
                 </ul>
@@ -292,7 +292,7 @@
             <span class="post-tag meta-info-item border-box">
                 <ul class="post-tag-ul">
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/MacOS/">MacOS</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/Minecraft/">Minecraft</a></li>
                         
                     
                 </ul>
@@ -302,12 +302,12 @@
         
         
             <span class="meta-info-item post-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>117 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>766 字</span>
             </span>
         
         
             <span class="meta-info-item post-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>2 分钟</span>
             </span>
         
         
@@ -329,25 +329,98 @@
                     
 
                     
-                         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>好东西</p>
-<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>克隆仓库项目到本地的用户目录下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh</span><br></pre></td></tr></table></figure>
-
-<p>然后将默认的<code>zshrc</code>配置替换为项目里面的模板配置。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>主题具体有哪些可以参考这个<a class="link"   target="_blank" rel="noopener" href="https://github.com/ohmyzsh/wiki/blob/main/Themes.md" >markdown文档<i class="fas fa-external-link-alt"></i></a></p>
-<p>比如我使用主题：<code>bira</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<p>找到<code>ZSH_THEME</code>这一行，将其值内容改为<code>bira</code>。</p>
-<p>然后重启终端生效。</p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img  
-                       lazyload
-                       alt="image"
-                       data-src="https://hyhacct.github.io/picx-images-hosting/hexo/001.3k8jee2sye.png"
-                       
-                 ></p>
+                         <p>在《我的世界》中，合理使用指令（Command）可以极大地提升测试效率或改善生存体验。在使用以下指令前，请确保地图已开启<strong>“允许作弊”</strong>。</p>
+<hr>
+<h2 id="🎮-模式切换-Game-Mode"><a href="#🎮-模式切换-Game-Mode" class="headerlink" title="🎮 模式切换 (Game Mode)"></a>🎮 模式切换 (Game Mode)</h2><p>最基础的操作，用于在不同游戏体验间快速切换。</p>
+<table>
+<thead>
+<tr>
+<th align="left">指令</th>
+<th align="left">简写 (旧版本)</th>
+<th align="left">效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>/gamemode creative</code></td>
+<td align="left"><code>/gamemode 1</code></td>
+<td align="left"><strong>创造模式</strong>：无限资源、飞行、无敌。</td>
+</tr>
+<tr>
+<td align="left"><code>/gamemode survival</code></td>
+<td align="left"><code>/gamemode 0</code></td>
+<td align="left"><strong>生存模式</strong>：常规玩法，受伤害和饥饿限制。</td>
+</tr>
+<tr>
+<td align="left"><code>/gamemode adventure</code></td>
+<td align="left"><code>/gamemode 2</code></td>
+<td align="left"><strong>冒险模式</strong>：无法破坏方块，常用于解谜地图。</td>
+</tr>
+<tr>
+<td align="left"><code>/gamemode spectator</code></td>
+<td align="left"><code>/gamemode 3</code></td>
+<td align="left"><strong>旁观模式</strong>：穿墙飞行，无法与世界交互。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>小技巧</strong>：在 Java 版 1.16+ 中，长按 <code>F3 + F4</code> 可以快速呼出模式切换菜单。</p>
+</blockquote>
+<hr>
+<h2 id="🛡️-核心规则管理-Game-Rule"><a href="#🛡️-核心规则管理-Game-Rule" class="headerlink" title="🛡️ 核心规则管理 (Game Rule)"></a>🛡️ 核心规则管理 (Game Rule)</h2><p>通过修改游戏规则（Gamerule）来改变世界运行逻辑。</p>
+<ul>
+<li><strong>死亡不掉落</strong> (最常用)：<br>  <code> /gamerule keepInventory true</code></li>
+<li><strong>禁用生物破坏</strong> (防止苦力怕炸坑、末影人搬砖)：<br>  <code>/gamerule mobGriefing false</code></li>
+<li><strong>禁用火焰蔓延</strong>：<br>  <code>/gamerule doFireTick false</code></li>
+<li><strong>停止昼夜交替</strong> (冻结时间)：<br>  <code>/gamerule doDaylightCycle false</code></li>
+</ul>
+<hr>
+<h2 id="🌩️-环境与时间控制"><a href="#🌩️-环境与时间控制" class="headerlink" title="🌩️ 环境与时间控制"></a>🌩️ 环境与时间控制</h2><p>掌控世界的天气与阴晴。</p>
+<h3 id="时间控制"><a href="#时间控制" class="headerlink" title="时间控制"></a>时间控制</h3><ul>
+<li><strong>设为白天</strong>：<code>/time set day</code></li>
+<li><strong>设为夜晚</strong>：<code>/time set night</code></li>
+<li><strong>查询当前游戏天数</strong>：<code>/time query day</code></li>
+<li><strong>增加时间</strong>：<code>/time add &lt;数值&gt;</code></li>
+</ul>
+<h3 id="天气控制"><a href="#天气控制" class="headerlink" title="天气控制"></a>天气控制</h3><ul>
+<li><strong>晴天</strong>：<code>/weather clear</code></li>
+<li><strong>雨天</strong>：<code>/weather rain</code></li>
+<li><strong>雷雨</strong>：<code>/weather thunder</code></li>
+<li><strong>锁定天气时长</strong>：<code>/weather clear 999999</code> (让天空长时间保持晴朗)</li>
+</ul>
+<hr>
+<h2 id="⚔️-生物与玩家操作"><a href="#⚔️-生物与玩家操作" class="headerlink" title="⚔️ 生物与玩家操作"></a>⚔️ 生物与玩家操作</h2><p>用于清理怪物或定位坐标。</p>
+<h3 id="清理生物-Kill"><a href="#清理生物-Kill" class="headerlink" title="清理生物 (Kill)"></a>清理生物 (Kill)</h3><ul>
+<li><strong>杀死所有生物</strong> (慎用，包括你自己)：<br>  <code>/kill @e</code></li>
+<li><strong>只杀死附近的敌对生物</strong> (Java版常用技巧)：<br>  <code>/kill @e[type=!player,type=!item,type=!minecart]</code></li>
+<li><strong>清除掉落物</strong> (缓解卡顿)：<br>  <code>/kill @e[type=item]</code></li>
+<li><strong>杀死特定生物</strong> (如苦力怕)：<br>  <code>/kill @e[type=creeper]</code></li>
+</ul>
+<h3 id="传送与位置-TP"><a href="#传送与位置-TP" class="headerlink" title="传送与位置 (TP)"></a>传送与位置 (TP)</h3><ul>
+<li><strong>传送到指定坐标</strong>：<br>  <code>/tp &lt;x&gt; &lt;y&gt; &lt;z&gt;</code></li>
+<li><strong>将 A 玩家传送到 B 玩家处</strong>：<br>  <code>/tp &lt;玩家A&gt; &lt;玩家B&gt;</code></li>
+<li><strong>寻找最近的结构</strong> (如村庄、要塞)：<br>  <code>/locate structure village</code> (新版本) &#x2F; <code>/locate village</code> (旧版本)</li>
+</ul>
+<hr>
+<h2 id="💎-物品与经验给予"><a href="#💎-物品与经验给予" class="headerlink" title="💎 物品与经验给予"></a>💎 物品与经验给予</h2><ul>
+<li><strong>获得特定物品</strong>：<br>  <code>/give @s diamond_sword 1</code> (给自己一把钻石剑)</li>
+<li><strong>增加经验等级</strong>：<br>  <code>/xp add @s 100 levels</code> (给自己增加 100 级经验)</li>
+<li><strong>清除背包所有物品</strong>：<br>  <code>/clear</code></li>
+</ul>
+<hr>
+<h2 id="💡-指令目标选择器说明"><a href="#💡-指令目标选择器说明" class="headerlink" title="💡 指令目标选择器说明"></a>💡 指令目标选择器说明</h2><p>在输入指令时，经常会看到 <code>@</code> 开头的符号，它们的含义如下：</p>
+<ul>
+<li><code>@s</code>：执行指令的本人（你自己）。</li>
+<li><code>@p</code>：距离最近的玩家。</li>
+<li><code>@a</code>：所有玩家。</li>
+<li><code>@e</code>：所有实体（包括生物、掉落物、箭矢等）。</li>
+<li><code>@r</code>：随机一名玩家。</li>
+</ul>
+<hr>
+<h2 id="⚠️-注意事项"><a href="#⚠️-注意事项" class="headerlink" title="⚠️ 注意事项"></a>⚠️ 注意事项</h2><ol>
+<li><strong>大小写敏感</strong>：所有指令必须使用英文小写。</li>
+<li><strong>Tab 键补全</strong>：在输入指令时，多按 <strong>Tab 键</strong>。系统会自动提示你接下来的参数，这能极大地避免语法错误。</li>
+<li><strong>极限模式说明</strong>：极限模式无法直接通过 <code>/gamemode</code> 切回生存，因为极限模式在存档创建时就已经锁定。如果死后想复活，需要“对局域网开放”并“开启作弊”。</li>
+</ol>
+<hr>
 
                     
                 </div>
@@ -358,11 +431,11 @@
     <div class="copyright-info-content border-box">
         <div class="copyright-info-top border-box">
             <div class="copyright-post-title border-box text-ellipsis">
-                在MacOS下安装oh-my-zsh
+                Minecraft 常用指令汇总
             </div>
 
             <div class="copyright-post-link border-box text-ellipsis">
-                2025/02/23/2026-02-16-006/
+                2026/02/20/2026-02-20-002/
             </div>
         </div>
 
@@ -378,7 +451,7 @@
                 <div class="type">
                     发布于
                 </div>
-                <div class="content">2025-02-23 15:02</div>
+                <div class="content">2026-02-20 16:25</div>
             </div>
 
 
@@ -414,7 +487,7 @@
                             <ul class="post-tags-box border-box">
                                 
                                     <li class="tag-item border-box">
-                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/MacOS/">MacOS</a>
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/Minecraft/">Minecraft</a>
                                     </li>
                                 
                             </ul>
@@ -453,22 +526,22 @@
                 
                     <div class="post-nav border-box">
                         
-                            <div class="prev-post">
-                                <a class="prev"
-                                   rel="prev"
-                                   href="/2025/02/23/2026-02-16-007/"
-                                   title="在MacOS下使用karabiner-elements"
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2026/02/20/2026-02-20-001/"
+                                   title="Minecraft 附魔属性介绍"
                                 >
-                                    <span class="left arrow-icon flex-center">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </span>
                                     <span class="title flex-center">
-                                        <span class="post-nav-title-item text-ellipsis">在MacOS下使用karabiner-elements</span>
-                                        <span class="post-nav-item">上一篇</span>
+                                        <span class="post-nav-title-item text-ellipsis">Minecraft 附魔属性介绍</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
                                     </span>
                                 </a>
                             </div>
-                        
                         
                     </div>
                 
@@ -489,7 +562,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">效果</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AE-%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2-Game-Mode"><span class="nav-number">1.</span> <span class="nav-text">🎮 模式切换 (Game Mode)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9B%A1%EF%B8%8F-%E6%A0%B8%E5%BF%83%E8%A7%84%E5%88%99%E7%AE%A1%E7%90%86-Game-Rule"><span class="nav-number">2.</span> <span class="nav-text">🛡️ 核心规则管理 (Game Rule)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%A9%EF%B8%8F-%E7%8E%AF%E5%A2%83%E4%B8%8E%E6%97%B6%E9%97%B4%E6%8E%A7%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">🌩️ 环境与时间控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%8E%A7%E5%88%B6"><span class="nav-number">3.1.</span> <span class="nav-text">时间控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A9%E6%B0%94%E6%8E%A7%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">天气控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%94%EF%B8%8F-%E7%94%9F%E7%89%A9%E4%B8%8E%E7%8E%A9%E5%AE%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">⚔️ 生物与玩家操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E7%94%9F%E7%89%A9-Kill"><span class="nav-number">4.1.</span> <span class="nav-text">清理生物 (Kill)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%81%E4%B8%8E%E4%BD%8D%E7%BD%AE-TP"><span class="nav-number">4.2.</span> <span class="nav-text">传送与位置 (TP)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%8E-%E7%89%A9%E5%93%81%E4%B8%8E%E7%BB%8F%E9%AA%8C%E7%BB%99%E4%BA%88"><span class="nav-number">5.</span> <span class="nav-text">💎 物品与经验给予</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A1-%E6%8C%87%E4%BB%A4%E7%9B%AE%E6%A0%87%E9%80%89%E6%8B%A9%E5%99%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">💡 指令目标选择器说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.</span> <span class="nav-text">⚠️ 注意事项</span></a></li></ol>
     </div>
 </div>
 
@@ -682,7 +755,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap border-box">
     <div class="post-toc border-box">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">效果</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AE-%E6%A8%A1%E5%BC%8F%E5%88%87%E6%8D%A2-Game-Mode"><span class="nav-number">1.</span> <span class="nav-text">🎮 模式切换 (Game Mode)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9B%A1%EF%B8%8F-%E6%A0%B8%E5%BF%83%E8%A7%84%E5%88%99%E7%AE%A1%E7%90%86-Game-Rule"><span class="nav-number">2.</span> <span class="nav-text">🛡️ 核心规则管理 (Game Rule)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%A9%EF%B8%8F-%E7%8E%AF%E5%A2%83%E4%B8%8E%E6%97%B6%E9%97%B4%E6%8E%A7%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">🌩️ 环境与时间控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%8E%A7%E5%88%B6"><span class="nav-number">3.1.</span> <span class="nav-text">时间控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A9%E6%B0%94%E6%8E%A7%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">天气控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%94%EF%B8%8F-%E7%94%9F%E7%89%A9%E4%B8%8E%E7%8E%A9%E5%AE%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">⚔️ 生物与玩家操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E7%94%9F%E7%89%A9-Kill"><span class="nav-number">4.1.</span> <span class="nav-text">清理生物 (Kill)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E9%80%81%E4%B8%8E%E4%BD%8D%E7%BD%AE-TP"><span class="nav-number">4.2.</span> <span class="nav-text">传送与位置 (TP)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%8E-%E7%89%A9%E5%93%81%E4%B8%8E%E7%BB%8F%E9%AA%8C%E7%BB%99%E4%BA%88"><span class="nav-number">5.</span> <span class="nav-text">💎 物品与经验给予</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%A1-%E6%8C%87%E4%BB%A4%E7%9B%AE%E6%A0%87%E9%80%89%E6%8B%A9%E5%99%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">💡 指令目标选择器说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">7.</span> <span class="nav-text">⚠️ 注意事项</span></a></li></ol>
     </div>
 </div>
 
