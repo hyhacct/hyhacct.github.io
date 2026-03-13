@@ -245,163 +245,211 @@
             <div class="page-content border-box keep-markdown-body ">
                 
                     <style>
-  /* 基础容器 - 适配暗色系文本 */
+  /* 全局与极客风点阵背景 */
   .about-wrapper-dark {
     max-width: 850px;
     margin: 0 auto;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: #cbd5e1; /* 浅灰蓝色正文 */
-    line-height: 1.6;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #94a3b8;
+    line-height: 1.7;
+    /* 微弱的点阵背景增加科技感 */
+    background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
+    padding: 20px;
   }
 
-  /* 个人信息与留言区 - 毛玻璃 + 浅蓝微渐变 */
+  /* 个人卡片 - 拟态终端风格 */
   .profile-section-dark {
-    text-align: center;
-    padding: 50px 20px;
-    border-radius: 20px;
-    margin-bottom: 40px;
-    
-    /* 毛玻璃核心代码 */
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.05) 0%, rgba(15, 23, 42, 0.4) 100%);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    
-    /* 浅蓝高光边框与发光阴影 */
+    position: relative;
+    padding: 60px 30px 40px;
+    border-radius: 16px;
+    margin-bottom: 50px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(56, 189, 248, 0.15);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(56, 189, 248, 0.03);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
   }
-  
-  .profile-avatar-dark {
-    width: 120px;
-    height: 120px;
+
+  /* 终端控制按钮 (macOS风格细节) */
+  .profile-section-dark::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: 2px solid rgba(56, 189, 248, 0.4);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+    background: #ef4444;
+    box-shadow: 20px 0 0 #eab308, 40px 0 0 #22c55e;
+    opacity: 0.8;
+  }
+
+  /* 现代圆角头像 */
+  .profile-avatar-dark {
+    width: 110px;
+    height: 110px;
+    border-radius: 30%; /* 超椭圆感 */
+    padding: 3px;
+    background: linear-gradient(135deg, #38bdf8, #818cf8, #1e293b);
     object-fit: cover;
-    transition: all 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin-bottom: 20px;
   }
   
   .profile-avatar-dark:hover {
-    transform: rotate(5deg) scale(1.05);
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
-    border-color: rgba(56, 189, 248, 0.8);
+    transform: translateY(-5px) scale(1.05) rotate(3deg);
   }
 
+  /* 渐变文本名字 */
   .profile-name-dark {
-    font-size: 2em;
-    font-weight: 700;
-    margin: 20px 0 10px;
-    color: #f8fafc;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    font-size: 2.2em;
+    font-weight: 800;
+    margin: 0 0 12px;
+    background: linear-gradient(to right, #f8fafc, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
   }
   
   .profile-bio-dark {
-    font-size: 1.1em;
-    color: #94a3b8;
-    max-width: 100%;
+    font-size: 1.05em;
+    max-width: 650px;
     margin: 0 auto;
+    color: #cbd5e1;
   }
 
-  /* 模块标题 */
+  /* 模块标题 - 命令行提示符风格 */
   .section-title-dark {
     font-size: 1.3em;
-    font-weight: 600;
-    color: #f8fafc;
-    padding-bottom: 12px;
-    margin: 40px 0 24px;
-    position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    letter-spacing: 1px;
-  }
-  
-  /* 标题下方的极客风浅蓝光柱 */
-  .section-title-dark::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, #38bdf8, transparent);
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-  }
-
-  /* 技术栈标签 - 毛玻璃晶体风格 */
-  .tech-tags-dark {
+    font-weight: 700;
+    color: #e2e8f0;
+    margin: 50px 0 25px;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 12px;
   }
   
+  .section-title-dark::before {
+    content: '❯';
+    color: #38bdf8;
+    font-family: "Fira Code", Consolas, monospace;
+    font-weight: 900;
+  }
+
+  .section-title-dark::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), transparent);
+  }
+
+  /* 技术栈标签 - 代码块风格 */
+  .tech-tags-dark {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
   .tech-tag-dark {
-    background: rgba(15, 23, 42, 0.6);
-    color: #e2e8f0;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.95em;
-    font-weight: 500;
-    
-    /* 标签毛玻璃 */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(56, 189, 248, 0.15);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(30, 41, 59, 0.5);
+    color: #cbd5e1;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-family: "Fira Code", "JetBrains Mono", Consolas, monospace; /* 程序员等宽字体 */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
     cursor: default;
   }
   
   .tech-tag-dark:hover {
     background: rgba(56, 189, 248, 0.1);
     color: #38bdf8;
-    border-color: rgba(56, 189, 248, 0.6);
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
   }
 
-  /* 推荐网站栅格网格 */
+  /* 推荐网站栅格 */
   .site-grid-dark {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
   }
   
-  /* 卡片毛玻璃风格 */
   .site-card-dark {
+    position: relative;
     display: flex;
     flex-direction: column;
-    padding: 24px;
+    padding: 20px;
     border-radius: 12px;
     text-decoration: none !important;
-    color: inherit;
-    
-    /* 默认状态下的暗色毛玻璃底色 */
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(56, 189, 248, 0.1);
-    
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden;
   }
   
-  /* 卡片悬浮：增强浅蓝渐变发光 */
+  /* 卡片左侧的品牌色指示条 */
+  .site-card-dark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #38bdf8;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: bottom;
+  }
+
   .site-card-dark:hover {
-    transform: translateY(-5px);
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(15, 23, 42, 0.8) 100%);
-    border-color: rgba(56, 189, 248, 0.5);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(56, 189, 248, 0.25);
+    transform: translateY(-3px);
+  }
+
+  .site-card-dark:hover::before {
+    transform: scaleY(1);
   }
   
   .site-title-dark {
     font-weight: 600;
-    font-size: 1.15em;
-    margin-bottom: 10px;
+    font-size: 1.1em;
     color: #f8fafc;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* 悬浮时的箭头动画 */
+  .site-title-dark::after {
+    content: '↗';
+    font-family: system-ui;
+    font-size: 1.1em;
+    color: #38bdf8;
+    opacity: 0;
+    transform: translate(-10px, 10px);
+    transition: all 0.3s ease;
+  }
+
+  .site-card-dark:hover .site-title-dark::after {
+    opacity: 1;
+    transform: translate(0, 0);
   }
   
   .site-desc-dark {
-    font-size: 0.9em;
-    color: #94a3b8;
-    line-height: 1.5;
-    flex-grow: 1;
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: #64748b;
   }
 </style>
 
@@ -473,6 +521,10 @@
     <a href="https://ikuuu.nl/auth/register?code=SFU2" target="_blank" class="site-card-dark">
       <div class="site-title-dark">机场推荐</div>
       <div class="site-desc-dark">目前我自己在使用,比较可靠,100元左右1年,每月300G流量。</div>
+    </a>
+    <a href="https://github.com/alienator88/Pearcleaner" target="_blank" class="site-card-dark">
+      <div class="site-title-dark">MacOS卸载工具</div>
+      <div class="site-desc-dark">支持卸载应用的同时清理缓存，清理Homebrew缓存，清理开发环境等，免费开源。</div>
     </a>
   </div>
 </div>
